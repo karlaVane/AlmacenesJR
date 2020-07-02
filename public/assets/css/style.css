@@ -1,0 +1,47 @@
+footer {
+    background-color: black;
+    color: white;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+    padding: 5px;
+}
+
+b {
+    color: #D12D9F;
+}
+
+h2 {
+    text-align: center;
+}
+
+#encabezadoT {
+    background-color: #160F5B;
+    color: white;
+    text-align: center;
+}
+
+table {
+    border: 20px;
+    border-color: #160F5B;
+    border-width: 4cm;
+}
+
+#barra {
+    background-color: #160F5B;
+    padding: 10px;
+    color: white;
+}
+
+#espaciado_pag {
+    padding: 50px;
+}
+
+#espaciado_boton {
+    padding: 30px;
+}
+
+#separacion {
+    padding: 33px;
+}

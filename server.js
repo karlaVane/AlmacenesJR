@@ -68,6 +68,36 @@ app.get('/crear_us', (req, res) => { // petición get
 
     })
 });
+app.get('/menu_gestionpd', (req, res) => { // petición get
+    res.render('menu_gestionpd', { //no es necesario poner .hbs
+        pagina: 'Gestión productos',
+
+    })
+});
+app.get('/crear_pd', (req, res) => { // petición get
+    res.render('crear_pd', { //no es necesario poner .hbs
+        pagina: 'Crear producto',
+
+    })
+});
+app.get('/modificar_pd', (req, res) => { // petición get
+    res.render('modificar_pd', { //no es necesario poner .hbs
+        pagina: 'Modificar producto',
+
+    })
+});
+app.get('/eliminar_pd', (req, res) => { // petición get
+    res.render('eliminar_pd', { //no es necesario poner .hbs
+        pagina: 'Eliminar producto',
+
+    })
+});
+app.get('/consultar_pd', (req, res) => { // petición get
+    res.render('consultar_pd', { //no es necesario poner .hbs
+        pagina: 'Consultar producto',
+
+    })
+});
 /*
 app.get('/about', (req, res) => { // petición get
     res.render('about', { // it's not necessary .hbs

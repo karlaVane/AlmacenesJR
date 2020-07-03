@@ -43,6 +43,31 @@ app.get('/menu_gestionus', (req, res) => { // petición get
 
     })
 });
+
+app.get('/consultar_us', (req, res) => { // petición get
+    res.render('consultar_us', { //no es necesario poner .hbs
+        pagina: 'Consultar usuarios',
+
+    })
+});
+app.get('/eliminar_us', (req, res) => { // petición get
+    res.render('eliminar_us', { //no es necesario poner .hbs
+        pagina: 'Eliminar usuarios',
+
+    })
+});
+app.get('/modificar_us', (req, res) => { // petición get
+    res.render('modificar_us', { //no es necesario poner .hbs
+        pagina: 'Modificar usuarios',
+
+    })
+});
+app.get('/crear_us', (req, res) => { // petición get
+    res.render('crear_us', { //no es necesario poner .hbs
+        pagina: 'Crear usuarios',
+
+    })
+});
 /*
 app.get('/about', (req, res) => { // petición get
     res.render('about', { // it's not necessary .hbs

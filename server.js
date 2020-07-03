@@ -25,6 +25,12 @@ app.get('/menu_reg', (req, res) => { // petición get
 
     })
 });
+app.get('/menu_usadmin', (req, res) => { // petición get
+    res.render('menu_usadmin', { //no es necesario poner .hbs
+        pagina: 'Administrador',
+
+    })
+});
 /*
 app.get('/about', (req, res) => { // petición get
     res.render('about', { // it's not necessary .hbs

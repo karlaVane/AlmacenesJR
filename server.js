@@ -31,6 +31,18 @@ app.get('/menu_usadmin', (req, res) => { // petición get
 
     })
 });
+app.get('/registrarse', (req, res) => { // petición get
+    res.render('registrarse', { //no es necesario poner .hbs
+        pagina: 'Registrarse',
+
+    })
+});
+app.get('/menu_gestionus', (req, res) => { // petición get
+    res.render('menu_gestionus', { //no es necesario poner .hbs
+        pagina: 'Gestion usuarios',
+
+    })
+});
 /*
 app.get('/about', (req, res) => { // petición get
     res.render('about', { // it's not necessary .hbs

@@ -1,0 +1,52 @@
+{{> header}}
+{{> navbar_cs}}
+<div id='separacion'></div>
+<br>
+<div class="main row">
+    <div class="col-md-11">
+        <center>
+            <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Seleccionar forma de pago:
+            <p>
+        </center>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_tarjeta"><i
+                class="fas fa-info-circle"></i></button><br>
+        <b style="color:#160F5B; font-size: small;">Ayuda</b>
+    </div>
+    <div class="container">
+        <!--para la ventana de ayuda-->
+        <div class="modal fade" id="modal_tarjeta">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #E4CF1A; color:black">
+                        <i class="fas fa-info-circle" style="color:black"></i> Ayuda
+                        <button type="button" data-dismiss="modal" class="close">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ol>
+                            <li>Al seleccionar Tarjeta de crédito:</li>
+                            <i class="fas fa-check-circle" style="color: #160F5B ;"></i>Se podrá diferir su compra a 3,
+                            6, 9 0 12 meses
+                            <li>Al seleccionar Tarjeta de débito:</li>
+                            <i class="fas fa-check-circle" style="color:#160F5B ;"></i>Recibirá el 10 % de descuento de
+                            su compra<br>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---->
+   
+
+    <center>
+        <form action="/tarj_cred" method="POST">
+        <label class="radio-inline"><input type="radio" name="optradio" checked> Tarjeta de crédito</label>
+        <label class="radio-inline"><input type="radio" name="optradio"> Tarjeta de débito</label>
+    </form>
+    </center>
+     </div>
+</div>
+{{> footer}}

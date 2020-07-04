@@ -1,10 +1,15 @@
 footer {
+    position: relative;
     background-color: black;
     color: white;
     width: 100%;
     bottom: 0px;
     text-align: center;
     padding: 5px;
+}
+
+body {
+    height: 100%;
 }
 
 b {
@@ -43,4 +48,21 @@ table {
 
 #separacion {
     padding: 33px;
+}
+
+#boton {
+    width: 10000;
+    height: 200;
+}
+
+#facturacion {
+    width: 200px;
+}
+
+.p {
+    font-size: 100px;
+}
+
+#datos {
+    font-size: large;
 }

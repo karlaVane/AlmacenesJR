@@ -19,18 +19,33 @@ app.get('/', (req, res) => { // petición get
     })
 });
 
-app.get('/menu_reg', (req, res) => { // petición get
-    res.render('menu_usreg', { //no es necesario poner .hbs
-        pagina: 'menu',
 
-    })
-});
+
 app.get('/menu_usadmin', (req, res) => { // petición get
     res.render('menu_usadmin', { //no es necesario poner .hbs
         pagina: 'Administrador',
 
     })
 });
+app.get('/menu_contador', (req, res) => { // petición get
+    res.render('menu_contador', { //no es necesario poner .hbs
+        pagina: 'Contador',
+
+    })
+});
+app.get('/datos_facturacion', (req, res) => { // petición get
+    res.render('datos_facturacion', { //no es necesario poner .hbs
+        pagina: 'Datos factura',
+
+    })
+});
+app.get('/tarj_credito', (req, res) => { // petición get
+    res.render('tarj_cred', { //no es necesario poner .hbs
+        pagina: 'Tarjeta de crédito',
+
+    })
+});
+
 app.get('/registrarse', (req, res) => { // petición get
     res.render('registrarse', { //no es necesario poner .hbs
         pagina: 'Registrarse',

@@ -1,0 +1,99 @@
+{{> header}}
+{{> navbar_cs}}
+<div id='separacion'></div>
+
+<div class="container">
+<br><br>
+<div class="main row">
+  <div class="col-md-5">
+        <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Realizar la factura con datos registrados:<p>
+  </div>
+  <div class="col-md-2">
+      <label class="radio-inline"><input type="radio" name="optradio" checked>  Sí</label>
+  </div>
+  <div class="col-md-4">
+      <label class="radio-inline"><input type="radio" name="optradio">  No</label>
+  </div>
+  <div class="col-md-1">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1"><i class="fas fa-info-circle"></i></button>
+      <b style="color:#160F5B; font-size: small;">Ayuda</b>
+</div>
+<!--para la ventana de ayuda-->
+      <div class="modal fade" id="modal1">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  
+                  <div class="modal-header" style="background-color: #E4CF1A; color:black">
+                      <i class="fas fa-info-circle" style="color:black"></i>   Ayuda
+                      <button type="button"  data-dismiss="modal"  class="close">
+                          &times;
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <ol>
+                          <li>Si desea realizar la factura con datos registrados:</li>
+                          <i class="fas fa-external-link-square-alt" style="color: #160F5B ;"></i>Clic en Generar factura
+                          <li>Si no desea realizar la factura con datos registrados:</li>
+                        <i class="fas fa-pen-square" style="color:#160F5B ;"></i>Llenar los campos con los datos que desee<br>
+                        <i class="fas fa-external-link-square-alt" style="color: #160F5B ;"></i>Clic en Generar factura
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+<!---->
+</div>
+
+<center>
+    <hr>
+    <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp Datos factura:</label>
+    <br><br><br>
+    <table>
+        <tr>
+            <td id="facturacion">
+                <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Nombre: </label>
+            </td>
+            <td>
+                <input type="input" class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">
+            </td>
+        </tr>
+        <tr>
+            <td id="facturacion">
+                <label><i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Cédula: </label>
+            </td>
+            <td>
+                <input type="input" class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">
+            </td>
+        </tr>
+        <tr>
+            <td id="facturacion">
+                <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Dirección: </label>
+            </td>
+            <td>
+                <input type="input" class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;"> 
+            </td>
+        </tr>
+        <tr>
+            <td id="facturacion">
+                <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp Teléfono:</label>
+            </td>
+            <td>
+                <input type="input" class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">
+            </td>
+        </tr>
+        <tr>
+            <td id="facturacion">
+                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Correo: </label>
+            </td>
+            <td>
+                <input type="email" class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;" >
+            </td>
+        </tr>
+    </table>
+    <div id="espaciado_boton"></div>
+    <button type="submit" class="btn btn-primary">
+    <i class="fas fa-external-link-square-alt" style="color: white;"></i>&nbsp Generar factura</button>
+    <div id="espaciado_boton"></div>
+</center>
+</div>
+{{> footer}}

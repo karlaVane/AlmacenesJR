@@ -9,14 +9,42 @@
     <div class="col-md-6">
         <div id="espaciado_pag">
         </div>
-        <h1>Tabla</h1>
-        <div id="espaciado_pag">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
+                    <input type="text" class="form-control" id="nombre"
+                    placeholder="Nombre" required='true'>
+                </div>
+                <div class="form-group">
+                    <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
+                    <br>
+                    <textarea name="textarea" class="form-control" rows="10" cols="50" required='true' placeholder="Descripción"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Precio &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
+                    <input type="number" class="form-control" id="precio"
+                     placeholder="Precio" required='true'>
+                </div>
+                <div class="form-group">
+                    <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
+                    <input type="number" class="form-control" id="cantidad"
+                    placeholder="Cantidad" required='true'>
+                </div>
+                <div class="form-group">
+                    <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+                    <br>
+                    <input type="file" class="form-control" name="imagensubida" accept="image/png, .jpeg, .jpg, image/gif" required='true'>
+                </div>
+                <center>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-envelope"></i>&nbsp Ingresar producto</button></center>
+                
+            </form>
         </div>
-        <center>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
+        
     </div>
+</div>
+</div>
 
-</div>
-</div>
 {{> footer}}

@@ -11,6 +11,12 @@ hbs.registerPartials(__dirname + '/views/parciales');
 app.set('view engine', 'hbs'); // hbs
 
 app.get('/', (req, res) => { // petición get
+    res.render('pag_principal', { //no es necesario poner .hbs
+        pagina: 'Almacenes JR',
+    })
+});
+
+app.get('/inicio_sesion', (req, res) => { // petición get
     res.render('inicio_sesion', { //no es necesario poner .hbs
         //nombre: 'KaRla VANEssA',
         pagina: 'Inicio Sesion',
@@ -19,12 +25,9 @@ app.get('/', (req, res) => { // petición get
     })
 });
 
-
-
 app.get('/menu_usadmin', (req, res) => { // petición get
     res.render('menu_usadmin', { //no es necesario poner .hbs
         pagina: 'Administrador',
-
     })
 });
 app.get('/menu_contador', (req, res) => { // petición get

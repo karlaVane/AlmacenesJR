@@ -8,10 +8,6 @@ footer {
     padding: 5px;
 }
 
-b {
-    color: #D12D9F;
-}
-
 h2 {
     text-align: center;
 }
@@ -36,6 +32,21 @@ table {
     background-color: #160F5B;
     padding: 10px;
     color: white;
+    text-align: center;
+}
+
+#barra_promociones {
+    background-color: #736F6E;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+#barra_productos {
+    background-color: #C23218;
+    padding: 10px;
+    color: white;
+    text-align: center;
 }
 
 #espaciado_pag {
@@ -65,4 +76,20 @@ table {
 
 #datos {
     font-size: large;
+}
+
+#descuento {
+    height: 70px;
+}
+
+#celda {
+    width: 200px;
+}
+
+#datos_td {
+    text-align: right;
+}
+
+#radio {
+    height: 50px;
 }

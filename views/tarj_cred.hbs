@@ -1,16 +1,38 @@
 {{> header}}
 {{> navbar_cs}}
 <script type="text/javascript">
-function cambio{
-    
-}
+    function showhideTarjeta_credito() {
+        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("credito").value
+
+        if (document.getElementById('credito').checked) {
+            document.getElementById('tarjeta_credito').style.display = 'block';
+            document.getElementById('tarjeta_debito').style.display = 'none';
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('btn_aceptar').style.display = 'block';
+        }
+    }
+    function showhideTarjeta_debito() {
+        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("debito").value
+
+        if (document.getElementById('debito').checked) {
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('tarjeta_debito').style.display = 'block';
+            document.getElementById('tarjeta_credito').style.display = 'none';
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('btn_aceptar').style.display = 'block';
+        }
+    }
+    function calcular_mes(radio) {
+        document.getElementById("mes_seleccionado").innerHTML = document.getElementById(radio).value + " Cuotas de: $"
+    }
 </script>
 <div id='separacion'></div>
 <br>
 <div class="main row">
     <div class="col-md-11">
         <center>
-            <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Seleccionar forma de pago:<p>
+            <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Seleccionar forma de pago:
+            <p>
         </center>
     </div>
     <div class="col-md-1">
@@ -20,7 +42,7 @@ function cambio{
     </div>
 
     <div class="container">
-        <!--para la ventana de ayuda-->
+        <!--################para la ventana de ayuda#############################-->
         <div class="modal fade" id="modal_tarjeta">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -43,88 +65,168 @@ function cambio{
                 </div>
             </div>
         </div>
-        <!---->
-
-
+        <!-- ##############RADIO BUTTONS############-->
         <center>
-            <form action="/tarj_cred" method="POST">
-                <div class="main row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3">
-                        <label class="radio-inline"><input type="radio" id ="credito" 
-                        onclick='document.getElementById("resp").innerHTML="Has seleccionado Tarjeta de "+ document.getElementById("credito").value' name="optradio" value="crédito"> Tarjeta de
-                            crédito</label>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="radio-inline"><input type="radio" name="optradio" id="debito" 
-                        onclick='document.getElementById("resp").innerHTML="Has seleccionado Tarjeta de "+ document.getElementById("debito").value' value="débito"> Tarjeta de débito</label>
-                    </div>
-                    <div class="col-md-3"></div>
+            <div class="main row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <label class="radio-inline"><input type="radio" id="credito" onclick=showhideTarjeta_credito()
+                            name="optradio" value="crédito"> Tarjeta de
+                        crédito <i class="fas fa-credit-card" style="color:#160F5B ;"></i></label>
                 </div>
+
+                <div class="col-md-3">
+                    <label class="radio-inline"><input type="radio" name="optradio" id="debito"
+                            onclick=showhideTarjeta_debito() value="débito"> Tarjeta de débito <i
+                            class="fas fa-money-check-alt" style="color:#160F5B ;"></i></label>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
     </div>
 </div>
-</form>
-<center><br><label id="resp"></label></center>
+
+<center><br> <i class="fas fa-grin-beam" style="color:#160F5B ;"></i><label id="resp"> Selecciona una tarjeta</label>
 </center>
-
-
-
+</center>
+<!--#########################INFORMACIÓN###################################################-->
+<div class="container">
+    <div class="main row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div id="ayuda">
+                <center>
+                    <br>
+                    <table class="table" border="2">
+                        <tr>
+                            <td id="encabezadoT"><i class="fas fa-info-circle"></i>&nbsp Información</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br>
+                                <div class="container">
+                                    <ol>
+                                        <li>Al seleccionar Tarjeta de crédito:</li>
+                                        <i class="fas fa-check-circle" style="color: #160F5B ;"></i>Se podrá diferir su
+                                        compra a
+                                        3,
+                                        6, 9 0 12 meses
+                                        <li>Al seleccionar Tarjeta de débito:</li>
+                                        <i class="fas fa-check-circle" style="color:#160F5B ;"></i>Recibirá el 10 % de
+                                        descuento
+                                        de
+                                        su compra<br>
+                                    </ol>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+<!--############################TARJETA DE CREDITO################################################-->
 <hr>
-<div id="tarjeta">
+<div id="tarjeta_credito" style="display: none;">
     <div class="main row">
         <div class="col-md-1">
         </div>
         <div class="col-md-5">
-            <div class="radio">
-                <label><input type="radio" name="meses" checked> 3 meses</label>
+            <label><b>Seleccionar meses a diferir:</b></label><br><br>
+            <div class="radio" id="radio">
+                <label><input type="radio" name="meses" id="3m" value="3" onclick=calcular_mes(id)> 3 meses</label>
             </div>
-            <div class="radio">
-                <label><input type="radio" name="meses"> 6 meses</label>
+            <div class="radio" id="radio">
+                <label><input type="radio" name="meses" id="6m" value="6" onclick=calcular_mes(id)> 6 meses</label>
             </div>
-            <div class="radio">
-                <label><input type="radio" name="meses"> 9 meses</label>
+            <div class="radio" id="radio">
+                <label><input type="radio" name="meses" id="9m" value="9" onclick=calcular_mes(id)> 9 meses</label>
             </div>
-            <div class="radio">
-                <label><input type="radio" name="meses"> 12 meses</label>
+            <div class="radio" id="radio">
+                <label><input type="radio" name="meses" id="12m" value="12" onclick=calcular_mes(id)> 12 meses</label>
             </div>
+            <b>Pago: </b><label id='mes_seleccionado'></label>
         </div>
 
         <div class="col-md-1">
         </div>
         <div class="col-md-5">
-            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
+            <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
             <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXXXXXXXXXXXXXXX'
                 style="background-color: #78AEEE; width: 300px;"><br>
-            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
+            <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
             </label>
             <input type="input" class="form-control" id="exampleInputPassword1" placeholder='AAAAMM'
                 style="background-color: #78AEEE; width: 300px;"><br>
 
-            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
+            <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
             </label>
             <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXX'
                 style="background-color: #78AEEE; width: 300px;">
         </div>
     </div>
 </div>
+<!--#########################TARJETA DEBITO##############################-->
+<div id="tarjeta_debito" style="display: none;">
+    <div class="main row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5">
+            <label><b>Recibes el 10% de descuento:</b></label><br><br>
+            <table>
+                <tr id='descuento'>
+                    <td id='celda'><i class="fas fa-shopping-cart" style="color: #160F5B ;"></i> Valor carrito</td>
+                    <td id='datos_td'>aqui poner el valor</td>
+                </tr>
+                <tr id='descuento'>
+                    <td id='celda'><i class="fas fa-percentage" style="color: #160F5B ;"></i> Descuento 10%</td>
+                    <td id='datos_td'>aqui poner el descuento</td>
+                </tr>
+                <tr id='descuento'>
+                    <td id='celda'><b><i class="fas fa-dollar-sign" style="color: #160F5B ;"></i> Total a pagar</b></td>
+                    <td id='datos_td'><b>poner el total</b></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5">
+            <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXXXXXXXXXXXXXXX'
+                style="background-color: #78AEEE; width: 300px;"><br>
+            <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
+            </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='AAAAMM'
+                style="background-color: #78AEEE; width: 300px;"><br>
+
+            <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
+            </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXX'
+                style="background-color: #78AEEE; width: 300px;">
+        </div>
+    </div>
+</div>
+<!--#####################BOTONES##################################-->
 <div class="container">
     <div class="main row">
         <div class="col-md-4"></div>
         <div class="col-md-2">
             <div id="espaciado_boton"></div>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-external-link-square-alt" style="color: white;"></i>&nbsp Generar factura</button>
+            <button type="submit" class="btn btn-primary" id="btn_regresar">
+                <i class="fas fa-arrow-circle-left" style="color: white;"></i>&nbsp Regresar</button>
             <div id="espaciado_boton"></div>
         </div>
 
         <div class="col-md-2">
             <div id="espaciado_boton"></div>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-external-link-square-alt" style="color: white;"></i>&nbsp Generar factura</button>
+            <button type="submit" class="btn btn-primary" id='btn_aceptar' style="display: none;">
+                <i class="fas fa-thumbs-up" style="color: white;"></i>&nbsp Aceptar</button>
             <div id="espaciado_boton"></div>
         </div>
         <div class="col-md-4"></div>
     </div>
 </div>
+
 {{> footer}}

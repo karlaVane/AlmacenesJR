@@ -8,15 +8,15 @@ footer {
     padding: 5px;
 }
 
-body {
-    height: 100%;
-}
-
 b {
     color: #D12D9F;
 }
 
 h2 {
+    text-align: center;
+}
+
+#resp {
     text-align: center;
 }
 

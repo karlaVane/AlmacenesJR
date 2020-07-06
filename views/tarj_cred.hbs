@@ -1,12 +1,16 @@
 {{> header}}
 {{> navbar_cs}}
+<script type="text/javascript">
+function cambio{
+    
+}
+</script>
 <div id='separacion'></div>
 <br>
 <div class="main row">
     <div class="col-md-11">
         <center>
-            <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Seleccionar forma de pago:
-            <p>
+            <p><i class="fas fa-edit" style="color:#160F5B ;"></i>&nbsp Seleccionar forma de pago:<p>
         </center>
     </div>
     <div class="col-md-1">
@@ -14,6 +18,7 @@
                 class="fas fa-info-circle"></i></button><br>
         <b style="color:#160F5B; font-size: small;">Ayuda</b>
     </div>
+
     <div class="container">
         <!--para la ventana de ayuda-->
         <div class="modal fade" id="modal_tarjeta">
@@ -39,14 +44,87 @@
             </div>
         </div>
         <!---->
-   
 
-    <center>
-        <form action="/tarj_cred" method="POST">
-        <label class="radio-inline"><input type="radio" name="optradio" checked> Tarjeta de crédito</label>
-        <label class="radio-inline"><input type="radio" name="optradio"> Tarjeta de débito</label>
-    </form>
-    </center>
-     </div>
+
+        <center>
+            <form action="/tarj_cred" method="POST">
+                <div class="main row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <label class="radio-inline"><input type="radio" id ="credito" 
+                        onclick='document.getElementById("resp").innerHTML="Has seleccionado Tarjeta de "+ document.getElementById("credito").value' name="optradio" value="crédito"> Tarjeta de
+                            crédito</label>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="radio-inline"><input type="radio" name="optradio" id="debito" 
+                        onclick='document.getElementById("resp").innerHTML="Has seleccionado Tarjeta de "+ document.getElementById("debito").value' value="débito"> Tarjeta de débito</label>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+    </div>
+</div>
+</form>
+<center><br><label id="resp"></label></center>
+</center>
+
+
+
+<hr>
+<div id="tarjeta">
+    <div class="main row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5">
+            <div class="radio">
+                <label><input type="radio" name="meses" checked> 3 meses</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="meses"> 6 meses</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="meses"> 9 meses</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="meses"> 12 meses</label>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-5">
+            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXXXXXXXXXXXXXXX'
+                style="background-color: #78AEEE; width: 300px;"><br>
+            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
+            </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='AAAAMM'
+                style="background-color: #78AEEE; width: 300px;"><br>
+
+            <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
+            </label>
+            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXX'
+                style="background-color: #78AEEE; width: 300px;">
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main row">
+        <div class="col-md-4"></div>
+        <div class="col-md-2">
+            <div id="espaciado_boton"></div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-external-link-square-alt" style="color: white;"></i>&nbsp Generar factura</button>
+            <div id="espaciado_boton"></div>
+        </div>
+
+        <div class="col-md-2">
+            <div id="espaciado_boton"></div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-external-link-square-alt" style="color: white;"></i>&nbsp Generar factura</button>
+            <div id="espaciado_boton"></div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
 </div>
 {{> footer}}

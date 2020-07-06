@@ -5,7 +5,7 @@ require('./hbs/helpers')
 
 const puerto = process.env.PORT || 3000; // puerto para Heroku
 
-app.use(express.static(__dirname + '/public')); // buscar en la carpeta puvblic
+app.use(express.static(__dirname + '/public')); // buscar en la carpeta public
 hbs.registerPartials(__dirname + '/views/parciales');
 
 app.set('view engine', 'hbs'); // hbs
@@ -42,8 +42,12 @@ app.get('/datos_facturacion', (req, res) => { // petición get
 app.get('/tarj_credito', (req, res) => { // petición get
     res.render('tarj_cred', { //no es necesario poner .hbs
         pagina: 'Tarjeta de crédito',
-
     })
+
+});
+
+app.post('/tarj_credito', (req, res) => {
+    console.log(req.body);
 });
 
 app.get('/registrarse', (req, res) => { // petición get

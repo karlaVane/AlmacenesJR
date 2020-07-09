@@ -3,7 +3,6 @@ const DB = require('../models/myslq');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
 
-
 //Iniziallizar el Router
 const router = Router();
 
@@ -43,19 +42,13 @@ router.get('/menu_contador', (req, res) => {
 router.get('/datos_facturacion', (req, res) => {
     res.render('datos_facturacion', {
         pagina: 'Datos factura',
-
     });
 });
 
 router.get('/tarj_credito', (req, res) => {
-    t
     res.render('tarj_cred', {
         pagina: 'Tarjeta de crédito',
     });
-});
-
-router.post('/tarj_credito', (req, res) => {
-    console.log(req.body);
 });
 
 router.get('/registrarse', (req, res) => {
@@ -82,7 +75,6 @@ router.get('/consultar_us', (req, res) => {
 router.get('/eliminar_us', (req, res) => {
     res.render('eliminar_us', {
         pagina: 'Eliminar usuarios',
-
     });
 });
 
@@ -96,22 +88,19 @@ router.get('/modificar_us', (req, res) => {
 router.get('/crear_us', (req, res) => {
     res.render('crear_us', {
         pagina: 'Crear usuarios',
-
     });
 });
 
 router.get('/menu_gestionpd', (req, res) => {
     res.render('menu_gestionpd', {
         pagina: 'Gestión productos',
-
-    })
+    });
 });
 
 router.get('/crear_pd', (req, res) => {
     res.render('crear_pd', {
         pagina: 'Crear producto',
-
-    })
+    });
 });
 
 router.post('/crear_pd', async(req, res) => {
@@ -125,28 +114,25 @@ router.post('/crear_pd', async(req, res) => {
         } else {
             res.send(error);
         }
-    })
+    });
 });
 
 router.get('/modificar_pd', (req, res) => {
     res.render('modificar_pd', {
         pagina: 'Modificar producto',
-
-    })
+    });
 });
 
 router.get('/eliminar_pd', (req, res) => {
     res.render('eliminar_pd', {
         pagina: 'Eliminar producto',
-
-    })
+    });
 });
 
 router.get('/consultar_pd', (req, res) => {
     res.render('consultar_pd', {
         pagina: 'Consultar producto',
-
-    })
+    });
 });
 
 module.exports = router;

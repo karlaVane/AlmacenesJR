@@ -2,49 +2,59 @@
 {{> navbar_cs}}
 <div id='separacion'></div>
 <div id='barra'>
-<h2><i class="fas fa-pencil-alt"></i>&nbsp CREAR PRODUCTO</h2>
+    <h2><i class="fas fa-pencil-alt"></i>&nbsp CREAR PRODUCTO</h2>
 </div>
-<div class="container">
+<br><br>
 <div class="main row">
+    <div class="col-md-3"></div>
     <div class="col-md-6">
-        <div id="espaciado_pag">
-        </div>
-        <div class="container">
-            <form>
-                <div class="form-group">
-                    <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
-                    <input type="text" class="form-control" id="nombre"
-                    placeholder="Nombre" required='true'>
-                </div>
-                <div class="form-group">
-                    <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
-                    <br>
-                    <textarea name="textarea" class="form-control" rows="10" cols="50" required='true' placeholder="Descripción"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Precio &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
-                    <input type="number" class="form-control" id="precio"
-                     placeholder="Precio" required='true'>
-                </div>
-                <div class="form-group">
-                    <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
-                    <input type="number" class="form-control" id="cantidad"
-                    placeholder="Cantidad" required='true'>
-                </div>
-                <div class="form-group">
-                    <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
-                    <br>
-                    <input type="file" class="form-control" name="imagensubida" accept="image/png, .jpeg, .jpg, image/gif" required='true'>
-                </div>
-                <center>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i>&nbsp Ingresar producto</button></center>
-                
-            </form>
-        </div>
-        
+        <form action="/crear_pd" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
+                <input type="text" class="form-control" name="name" id="nombre" placeholder="Nombre" required='true'>
+            </div>
+
+            <label>Categoría</label>
+            <select id="inputState" class="form-control" name="categ" required='true'>
+                <option selected>Escoga una opción</option>
+                <option value="1">Colchón</option>
+                <option value="2">Almohadas</option>
+                <option value="3">Sofa cama</option>
+                <option value="4">Complementos</option>
+            </select>  
+            <div class="form-group">
+                <br>
+                <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
+                <br>
+                <textarea name="desc" class="form-control" rows="10" cols="50" required='true'
+                    placeholder="Descripción"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Precio &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
+                <input type="number" class="form-control" name="precio" id="precio" placeholder="Precio" required='true'>
+            </div>
+            <div class="form-group">
+                <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
+                <input type="number" class="form-control" name="cant" id="cantidad" placeholder="Cantidad" required='true'>
+            </div>
+            <div class="form-group">
+                <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+                <br>
+                <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif"
+                    required='true'>
+            </div>
+            <hr>
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-envelope"></i>&nbsp Ingresar producto</button>
+            </center>
+            <br><br>
+
+        </form>
     </div>
+
+    <div class="col-md-3"></div>
 </div>
-</div>
+
 
 {{> footer}}

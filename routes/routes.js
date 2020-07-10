@@ -70,7 +70,7 @@ router.get('/registrarse', (req, res) => {
 router.post('/registrarse', async(req, res) => {
     const { nombre, cedula, correo, passw } = req.body;
     const sql = "INSERT INTO usuario (nombre, estado, contrasenia, correo, direccion, telefono, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [nombre, 1, passw, correo, "direccion", cedula, 0999999999, 3, 0], (error, rows, fields) => {
+    await DB.query(sql, [nombre, 1, passw, correo, "direccion", cedula, 3, 0], (error, rows, fields) => {
         if (!error) {
             res.redirect('/');
         } else {

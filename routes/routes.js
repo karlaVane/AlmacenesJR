@@ -21,7 +21,7 @@ router.get('/', async(req, res) => { // petición get
         if (!error) {
             res.render('pag_principal', { pagina: 'Almacenes JR', datos: rows });
         } else {
-            req.send(error);
+            res.send(error);
         }
     });
 });

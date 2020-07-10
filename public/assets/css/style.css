@@ -93,3 +93,9 @@ table {
 #radio {
     height: 50px;
 }
+
+#nombre_prod {
+    background-color: #4C9DC2;
+    color: white;
+    padding: 5px;
+}

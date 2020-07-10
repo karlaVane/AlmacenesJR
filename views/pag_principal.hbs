@@ -29,17 +29,25 @@
     </div>
 </div>
 <div class="container p-4" id="productos">
-<div class="row">
-    <div class="card-columns">
-        {{#each datos}}
+    <div class="row">
+        <div class="card-columns">
+            {{#each datos}}
             <div class="card">
+                <center><div class="card-title" id="nombre_prod">{{nombre_prod}}</div></center>
                 <img src="{{imagen}}" class="card-img-top">
-            <div class="card-body">
-                <h5 class="card-title">{{nombre_prod}}</h5>
-                <p class="card-text">{{descripcion}}</p>
+                <div class="card-body">
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Mostrar descripcion
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <p class="card-text">{{descripcion}}</p>
+                    </div>
+
+                </div>
             </div>
-            </div>
-        {{/each}}
+            {{/each}}
+        </div>
     </div>
 </div>
 </div>

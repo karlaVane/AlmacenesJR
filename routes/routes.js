@@ -68,9 +68,9 @@ router.get('/registrarse', (req, res) => {
 });
 
 router.post('/registrarse', async(req, res) => {
-    const { nombre, cedula, correo, passw } = req.body;
-    const sql = "INSERT INTO usuario (nombre, estado, contrasenia, correo, direccion, telefono, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [nombre, 1, passw, correo, "direccion", cedula, 3, 0], (error, rows, fields) => {
+    const { nombre, cedula, correo, passw, telf, dir } = req.body;
+    const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, 3, 0], (error, rows, fields) => {
         if (!error) {
             res.redirect('/');
         } else {
@@ -114,10 +114,9 @@ router.get('/crear_us', (req, res) => {
 });
 
 router.post('/crear_us', async(req, res) => {
-    const { nombre, cedula, correo, passw, telf, tipoUS } = req.body;
-    console.log(nombre, tipoUS);
-    const sql = "INSERT INTO usuario (nombre, estado, contrasenia, correo, direccion, telefono, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [nombre, 1, passw, correo, cedula, telf, tipoUS, 0], (error, rows, fields) => {
+    const { nombre, cedula, correo, passw, telf, dir, tipoUS } = req.body;
+    const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0], (error, rows, fields) => {
         if (!error) {
             res.redirect('/menu_usadmin');
         } else {
@@ -139,10 +138,10 @@ router.get('/crear_pd', (req, res) => {
 });
 
 router.post('/crear_pd', async(req, res) => {
-    const { name, categ, desc, precio, cant } = req.body;
+    const { name, categ, desc, precio_compra, precio_venta, cant } = req.body;
     const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
-    var sql = "INSERT INTO producto (nombre_prod, descripcion, cantidad, precio, imagen, id_categoria) VALUES (?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [name, desc, cant, precio, resultIMG.url, categ], (error, row, fields) => {
+    var sql = "INSERT INTO producto (nombre_prod, descripcion, cantidad,  imagen, precio_venta, precio_compra, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    await DB.query(sql, [name, desc, cant, resultIMG.url, precio_venta, precio_compra, categ], (error, row, fields) => {
         if (!error) {
             fs.unlink(req.file.path);
             res.redirect('/menu_usadmin')

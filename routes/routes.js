@@ -2,6 +2,7 @@ const { Router } = require("express");
 const DB = require('../models/myslq');
 const cloudinary = require('cloudinary');
 const fs = require('fs-extra');
+const { readSync } = require("fs-extra");
 
 //Iniziallizar el Router
 const router = Router();
@@ -13,8 +14,16 @@ cloudinary.config({
     api_secret: process.env.CLOUD_SECRET
 });
 
-router.get('/', (req, res) => { // petición get
-    res.render('pag_principal', { pagina: 'Almacenes JR' });
+router.get('/', async(req, res) => { // petición get
+    const sql = "SELECT * FROM producto";
+    await DB.query(sql, (error, rows, fields) => {
+        console.log(rows);
+        if (!error) {
+            res.render('pag_principal', { pagina: 'Almacenes JR', datos: rows });
+        } else {
+            req.send(error);
+        }
+    });
 });
 
 router.get('/inicio_sesion', (req, res) => {
@@ -58,12 +67,25 @@ router.get('/registrarse', (req, res) => {
     });
 });
 
+router.post('/registrarse', async(req, res) => {
+    const { nombre, cedula, correo, passw } = req.body;
+    const sql = "INSERT INTO usuario (nombre, estado, contrasenia, correo, direccion, telefono, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    await DB.query(sql, [nombre, 1, passw, correo, "direccion", cedula, 0999999999, 3, 0], (error, rows, fields) => {
+        if (!error) {
+            res.redirect('/');
+        } else {
+            res.send(error);
+        }
+    });
+});
+
 router.get('/menu_gestionus', (req, res) => {
     res.render('menu_gestionus', {
         pagina: 'Gestion usuarios',
 
     });
 });
+
 
 router.get('/consultar_us', (req, res) => {
     res.render('consultar_us', {
@@ -88,6 +110,19 @@ router.get('/modificar_us', (req, res) => {
 router.get('/crear_us', (req, res) => {
     res.render('crear_us', {
         pagina: 'Crear usuarios',
+    });
+});
+
+router.post('/crear_us', async(req, res) => {
+    const { nombre, cedula, correo, passw, telf, tipoUS } = req.body;
+    console.log(nombre, tipoUS);
+    const sql = "INSERT INTO usuario (nombre, estado, contrasenia, correo, direccion, telefono, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    await DB.query(sql, [nombre, 1, passw, correo, cedula, telf, tipoUS, 0], (error, rows, fields) => {
+        if (!error) {
+            res.redirect('/menu_usadmin');
+        } else {
+            res.send(error);
+        }
     });
 });
 

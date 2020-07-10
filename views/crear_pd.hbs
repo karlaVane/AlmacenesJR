@@ -1,5 +1,13 @@
 {{> header}}
 {{> navbar_cs}}
+<script type="text/javascript">
+    function calculo_precioVenta() {
+        var compra = parseFloat(document.getElementById('precio_compra').value);
+        var venta=parseFloat(compra+((compra*25)/100));
+        document.getElementById("precio_venta").innerHTML=venta
+    }
+</script>
+
 <div id='separacion'></div>
 <div id='barra'>
     <h2><i class="fas fa-pencil-alt"></i>&nbsp CREAR PRODUCTO</h2>
@@ -21,7 +29,7 @@
                 <option value="2">Almohadas</option>
                 <option value="3">Sofa cama</option>
                 <option value="4">Complementos</option>
-            </select>  
+            </select>
             <div class="form-group">
                 <br>
                 <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
@@ -30,12 +38,26 @@
                     placeholder="Descripción"></textarea>
             </div>
             <div class="form-group">
-                <label>Precio &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
-                <input type="number" class="form-control" name="precio" id="precio" placeholder="Precio" required='true'>
+                <label>Precio Compra &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
+                <div class="main row">
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" name="precio_compra" id="precio_compra" placeholder="Precio"
+                            required='true'>
+                    </div>
+                    <div class="com-md-4">
+                        <button type="button" class="btn btn-success" onclick=calculo_precioVenta()>Calcular precio venta</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label >Precio Venta &nbsp <i class="fas fa-dollar-sign"
+                        style="color: #160F5B;"></i></label>
+                <label class="form-control" name="precio_venta" id='precio_venta'></label>
             </div>
             <div class="form-group">
                 <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
-                <input type="number" class="form-control" name="cant" id="cantidad" placeholder="Cantidad" required='true'>
+                <input type="number" class="form-control" name="cant" id="cantidad" placeholder="Cantidad"
+                    required='true'>
             </div>
             <div class="form-group">
                 <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>

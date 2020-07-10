@@ -28,8 +28,20 @@
         </div>
     </div>
 </div>
-<div id="productos">
-    Aqui van los productos
+<div class="container p-4" id="productos">
+<div class="row">
+    <div class="card-columns">
+        {{#each datos}}
+            <div class="card">
+                <img src="{{imagen}}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{nombre_prod}}</h5>
+                <p class="card-text">{{descripcion}}</p>
+            </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
 </div>
 
 {{> footer}}

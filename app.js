@@ -3,7 +3,7 @@ const hbs = require('hbs');
 const path = require('path');
 const morgan = require('morgan');
 const multer = require('multer');
-require('./hbs/helpers')
+
 
 
 //Inizialiso el Objeto
@@ -18,9 +18,10 @@ app.use(express.static(__dirname + '/public')); // buscar en la carpeta public
 hbs.registerPartials(__dirname + '/views/parciales');
 
 //Middlewares
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
+require('./hbs/helpers');
 
 //Multer
 const storage = multer.diskStorage({

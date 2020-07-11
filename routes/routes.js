@@ -17,15 +17,30 @@ cloudinary.config({
 router.get('/', async(req, res) => { // petición get
     const sql = "SELECT * FROM producto";
     await DB.query(sql, (error, rows, fields) => {
-        console.log(rows);
+        //console.log(rows);
         if (!error) {
-            res.render('pag_principal', { pagina: 'Almacenes JR', datos: rows });
+            var id = req.query.id || 1;
+            const sqlopc = "SELECT * FROM producto where id_categoria =";
+            DB.query(sqlopc + id, (error, row, fields) => {
+                if (!error) {
+                    res.render('pag_principal', { pagina: 'Almacenes JR', datos: row, colchon: 1, almohada: 2, sofa: 3, complementos: 4 });
+                } else {
+                    res.send(error, "e")
+                }
+            });
         } else {
-            res.send(error);
+            res.send(error, "p");
         }
     });
 });
-
+/*
+router.get('/id', (req, res) => {
+    const id = req.query.id;
+    console.log(id);
+    const slq = "SELECT * FROM "
+    res.send(id);
+});
+*/
 router.get('/inicio_sesion', (req, res) => {
     res.render('inicio_sesion', {
         //nombre: 'KaRla VANEssA',
@@ -141,10 +156,10 @@ router.post('/crear_pd', async(req, res) => {
     const { name, categ, desc, precio_compra, precio_venta, cant } = req.body;
     const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
     var sql = "INSERT INTO producto (nombre_prod, descripcion, cantidad,  imagen, precio_venta, precio_compra, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [name, desc, cant, resultIMG.url, precio_venta, precio_compra, categ], (error, row, fields) => {
+    await DB.query(sql, [name.toUpperCase(), desc, cant, resultIMG.url, precio_venta, precio_compra, categ], (error, row, fields) => {
         if (!error) {
             fs.unlink(req.file.path);
-            res.redirect('/menu_usadmin')
+            res.redirect('/')
         } else {
             res.send(error);
         }

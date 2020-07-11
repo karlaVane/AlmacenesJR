@@ -99,3 +99,15 @@ table {
     color: white;
     padding: 5px;
 }
+
+#promocion {
+    padding: 40px;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: black
+}

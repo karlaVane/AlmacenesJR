@@ -15,32 +15,17 @@ cloudinary.config({
 });
 
 router.get('/', async(req, res) => { // petición get
-    const sql = "SELECT * FROM producto";
-    await DB.query(sql, (error, rows, fields) => {
-        //console.log(rows);
+    var id = req.query.id || 1;
+    const sql = "SELECT * FROM producto where id_categoria =";
+    await DB.query(sql + id, (error, row, fields) => {
         if (!error) {
-            var id = req.query.id || 1;
-            const sqlopc = "SELECT * FROM producto where id_categoria =";
-            DB.query(sqlopc + id, (error, row, fields) => {
-                if (!error) {
-                    res.render('pag_principal', { pagina: 'Almacenes JR', datos: row, colchon: 1, almohada: 2, sofa: 3, complementos: 4 });
-                } else {
-                    res.send(error, "e")
-                }
-            });
+            res.render('pag_principal', { pagina: 'Almacenes JR', datos: row, colchon: 1, almohada: 2, sofa: 3, complementos: 4 });
         } else {
-            res.send(error, "p");
+            res.send(error)
         }
     });
 });
-/*
-router.get('/id', (req, res) => {
-    const id = req.query.id;
-    console.log(id);
-    const slq = "SELECT * FROM "
-    res.send(id);
-});
-*/
+
 router.get('/inicio_sesion', (req, res) => {
     res.render('inicio_sesion', {
         //nombre: 'KaRla VANEssA',

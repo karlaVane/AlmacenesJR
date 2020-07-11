@@ -5,6 +5,6 @@ hbs.registerHelper('getAnio', () => {
 })
 
 hbs.registerHelper('palabra', (palabra) => {
-    var palabre_sinE = palabra.replace(/ /g, "");
+    var palabre_sinE = palabra.replace(/[^\w]/gi, '');
     return palabre_sinE;
 });

@@ -87,10 +87,17 @@ router.get('/menu_gestionus', (req, res) => {
 });
 
 
-router.get('/consultar_us', (req, res) => {
-    res.render('consultar_us', {
-        pagina: 'Consultar usuarios',
-
+router.get('/consultar_us', async(req, res) => {
+    const sql = "select nombre, cedula, correo, direccion, telefono, estado, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us";
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('consultar_us', {
+                pagina: 'Consultar usuarios',
+                datos: row
+            });
+        } else {
+            res.send(error)
+        }
     });
 });
 
@@ -100,10 +107,17 @@ router.get('/eliminar_us', (req, res) => {
     });
 });
 
-router.get('/modificar_us', (req, res) => {
-    res.render('modificar_us', {
-        pagina: 'Modificar usuarios',
-
+router.get('/modificar_us', async(req, res) => {
+    const sql = "select nombre, cedula, correo, direccion, telefono, estado, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us";
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('modificar_us', {
+                pagina: 'modificar usuarios',
+                datos: row
+            });
+        } else {
+            res.send(error)
+        }
     });
 });
 
@@ -167,6 +181,39 @@ router.get('/consultar_pd', (req, res) => {
     res.render('consultar_pd', {
         pagina: 'Consultar producto',
     });
+});
+
+router.get('/editar_datosUs', async(req, res) => {
+    var cedula = req.query.ci;
+    const sql = "select nombre, cedula, correo, direccion, telefono, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us and cedula = '";
+    await DB.query(sql + cedula + "'", (error, row, fields) => {
+        if (!error) {
+            res.render('editar_datosUs', {
+                pagina: 'Modificacion usuarios',
+                datos: row,
+                cedula
+            });
+        } else {
+            res.send(error)
+        }
+    });
+});
+
+router.post('/editar_datosUs', async(req, res) => {
+    var cedula_q = req.query.ci
+    const { nombre, cedula, correo, dir, telf, tipoUS } = req.body;
+    const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+    const sql = "update usuario set nombre= '";
+    await DB.query(sql + nombre + "' ,cedula = '" + cedula + "', correo='" + correo +
+        " ', direccion='" + dir + "',telefono='" + telf + "',id_us= " + tipoUS +
+        ",imagen= '" + resultIMG.url + "' where cedula = '" + cedula_q + "'", (error, rows, fields) => {
+            if (!error) {
+                fs.unlink(req.file.path);
+                res.redirect('/consultar_us');
+            } else {
+                res.send(error);
+            }
+        });
 });
 
 module.exports = router;

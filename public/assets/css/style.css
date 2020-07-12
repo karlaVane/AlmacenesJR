@@ -29,7 +29,7 @@ table {
 }
 
 #barra {
-    background-color: #160F5B;
+    background-color: #4C9DC2;
     padding: 10px;
     color: white;
     text-align: center;
@@ -110,4 +110,18 @@ a {
 
 a:hover {
     color: black
+}
+
+#icono_mod {
+    color: #46D30D;
+}
+
+#icono_mod:hover {
+    color: #160F5B;
+}
+
+th {
+    background-color: #8D8D95;
+    color: white;
+    text-align: center;
 }

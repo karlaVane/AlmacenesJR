@@ -1,6 +1,7 @@
 {{> header}}
 {{> navbar_cs}}
 <br><br><br><br>
+{{#each datos}}
 <div class="container">
     <div class="main row">
         <div class="col-md-3">
@@ -8,63 +9,67 @@
         <div class="col-md-6">
             <table class="table" border="2">
                 <tr>
-                    <td id="encabezadoT"><i class="fas fa-user-plus"></i>&nbsp Registro de nuevo usuario</td>
+                    <td id="encabezadoT"><i class="fas fa-edit"></i>&nbsp Modificar campos</td>
                 </tr>
                 <tr>
                     <td>
                         <br>
                         <div class="container">
-                            <form action="/crear_pd" method="POST" enctype="multipart/form-data">
+                            <form action="/editar_datosUs?ci={{cedula}}" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Ingrese el nombre &nbsp <i class="fas fa-user"
                                             style="color: #160F5B;"></i></label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
-                                        aria-describedby="emailHelp" placeholder="Nombre" required='true'>
+                                        aria-describedby="emailHelp" placeholder="Nombre" required='true'
+                                        value="{{nombre}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Ingrese la cédula &nbsp <i class="fas fa-id-card"
                                             style="color: #160F5B;"></i></label>
                                     <input type="text" class="form-control" id="cedula" name="cedula"
-                                        placeholder="Cédula" required='true'>
+                                        placeholder="Cédula" required='true' value="{{cedula}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Ingrese el correo electrónico &nbsp <i class="fas fa-envelope"
                                             style="color: #160F5B;"></i></label>
                                     <input type="email" class="form-control" id="email" name="correo"
-                                        aria-describedby="emailHelp" placeholder="ejemplo@hotmail.com" required='true'>
+                                        aria-describedby="emailHelp" placeholder="ejemplo@hotmail.com" required='true' value="{{correo}}">
                                 </div>
-                                <div class="form-group">
-                                    <label>Ingrese la contraseña &nbsp<i class="fas fa-key"
-                                            style="color:#160F5B;"></i></label>
-                                    <input type="password" class="form-control" id="pwd1" name="passw" required='true'
-                                        placeholder="Password">
-                                </div>
+                    
                                 <div class="form-group">
                                     <label>Ingrese el Numero de teléfono &nbsp <i class="fa fa-mobile"
                                             style="color: #160F5B;"></i></label>
                                     <input type="tel" class="form-control" id="telf" name="telf"
-                                        aria-describedby="emailHelp" placeholder="Número teléfono" required='true'>
+                                        aria-describedby="emailHelp" placeholder="Número teléfono" required='true' value="{{telefono}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Ingrese Direccion &nbsp <i class="fas fa-home"
                                             style="color: #160F5B;"></i></label>
                                     <input type="text" class="form-control" id="dir" name="dir"
-                                        aria-describedby="emailHelp" placeholder="Dirección" required='true'>
+                                        aria-describedby="emailHelp" placeholder="Dirección" required='true' value="{{direccion}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Tipo de usuario &nbsp<i class="fas fa-id-badge"
                                             style="color:#160F5B;"></i></label>
                                     <br>
                                     <select class="form-control" name="tipoUS" required='true'>
+                                        <option selected>Escoga una opción</option>
                                         <option value="2">Contador</option>
                                         <option value="1">Administrador</option>
+                                        <option value="3">Registrado</option>
                                     </select>
                                     <div class="form-group">
+                                        <br>
                                         <label> Subir una imagen &nbsp<i class="fas fa-image"
-                                                style="color: #160F5B;"></i></label>
+                                                style="color: #160F5B;"></i></label><br>
+                                                {{#if imagen}}
+                                                <center><img src="{{imagen}}"width="200" height="100"></center>
+                                                {{else}}
+                                                No tiene ninguna imagen cargada
+                                                {{/if}}
                                         <br>
                                         <input type="file" class="form-control" name="image"
-                                            accept="image/png, .jpeg, .jpg, image/gif" required='true'>
+                                            accept="image/png, .jpeg, .jpg, image/gif" required='false'>
                                     </div>
 
                                 </div>
@@ -82,4 +87,5 @@
         </div>
     </div>
 </div>
+{{/each}}
 {{> footer}}

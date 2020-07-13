@@ -8,19 +8,29 @@
     <div class="main row">
         <div class="col-md-6">
             <div id="espaciado_boton"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>&nbsp Crear
-                productos</button>
+            <form action="/crear_pd">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i>&nbsp Crear
+                    productos</button>
+            </form>
             <div id="espaciado_boton"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp Consultar
-                productos</button>
+            <form action="consultar_pd_admin">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp Consultar
+                    productos</button>
+            </form>
             <div id="espaciado_boton"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-times"></i>&nbsp Eliminar productos</button>
+            <form action="/eliminar_pd">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-times"></i>&nbsp Eliminar
+                    productos</button>
+            </form>
             <div id="espaciado_boton"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp Modificar productos</button>
+            <form action="/modificar_pd">
+                <button type="button" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp Modificar
+                    productos</button>
+            </form>
         </div>
         <div class="col-md-6">
             <div id="espaciado_boton"></div>
-                <img src="/images/propaganda/regreso.jpg" width='100%' height="300">
+            <img src="/images/propaganda/regreso.jpg" width='100%' height="300">
         </div>
     </div>
     <div id="espaciado_pag"></div>

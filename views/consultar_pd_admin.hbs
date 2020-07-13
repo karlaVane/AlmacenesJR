@@ -1,0 +1,68 @@
+{{> header}}
+{{> navbar_cs}}
+<div id='separacion'></div>
+<div id='barra'>
+    <h2><i class="fas fa-search"></i>&nbsp CONSULTAR PRODUCTO</h2>
+</div>
+<br><br>
+<div class="container">
+    <div style="text-align: right;">
+        <form action="/buscar_categ" method="POST">
+            Buscar por:
+            <select id="inputState" name="categ_prod" required='true'>
+                <option selected>Escoga una opción</option>
+                <option value="1">Colchón</option>
+                <option value="2">Almohadas</option>
+                <option value="3">Sofá cama</option>
+                <option value="4">Complementos</option>
+                <option value="5">Todo</option>
+            </select>
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</div>
+<br>
+<form action="/menu_gestionpd">
+    <div class="main row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Venta</th>
+                    <th>Precio Compra</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                </tr>
+                {{#each datos}}
+                <tr>
+                    <td>{{nombre_prod}}</td>
+                    <td style="text-align: justify;">{{descripcion}}</td>
+                    <td style="text-align: center;">{{cantidad}}</td>
+                    <td>${{precio_venta}}</td>
+                    <td>${{precio_compra}}</td>
+                    <td>{{categoria}}</td>
+                    <td id="columna_imagen">
+                        {{#if imagen}}
+                        <img src="{{imagen}}" width="200px" height="200px"></img>
+                        {{else}}
+                        No tiene imagen
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+            <div id="espaciado_pag">
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i>&nbsp Regresar</button>
+            </center>
+            <div id="espaciado_boton"></div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</form>
+{{> footer}}

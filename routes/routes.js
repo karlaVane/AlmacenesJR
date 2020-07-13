@@ -13,7 +13,7 @@ cloudinary.config({
     api_key: process.env.CLOUD_KEY,
     api_secret: process.env.CLOUD_SECRET
 });
-
+///PAGINA PRINCIPAL
 router.get('/', async(req, res) => { // petición get
     var id = req.query.id || 1;
     const sql = "SELECT * FROM producto where id_categoria =";
@@ -25,7 +25,7 @@ router.get('/', async(req, res) => { // petición get
         }
     });
 });
-
+//INICIO DE SESION
 router.get('/inicio_sesion', (req, res) => {
     res.render('inicio_sesion', {
         //nombre: 'KaRla VANEssA',
@@ -35,31 +35,7 @@ router.get('/inicio_sesion', (req, res) => {
     });
 });
 
-router.get('/menu_usadmin', (req, res) => {
-    res.render('menu_usadmin', {
-        pagina: 'Administrador',
-    });
-});
-
-router.get('/menu_contador', (req, res) => {
-    res.render('menu_contador', {
-        pagina: 'Contador',
-
-    });
-});
-
-router.get('/datos_facturacion', (req, res) => {
-    res.render('datos_facturacion', {
-        pagina: 'Datos factura',
-    });
-});
-
-router.get('/tarj_credito', (req, res) => {
-    res.render('tarj_cred', {
-        pagina: 'Tarjeta de crédito',
-    });
-});
-
+//REGISTRARSE
 router.get('/registrarse', (req, res) => {
     res.render('registrarse', {
         pagina: 'Registrarse',
@@ -76,6 +52,12 @@ router.post('/registrarse', async(req, res) => {
         } else {
             res.send(error);
         }
+    });
+});
+//GESTION DE USUARIOS ADMINISTRADOR
+router.get('/menu_usadmin', (req, res) => {
+    res.render('menu_usadmin', {
+        pagina: 'Administrador',
     });
 });
 
@@ -101,9 +83,29 @@ router.get('/consultar_us', async(req, res) => {
     });
 });
 
-router.get('/eliminar_us', (req, res) => {
-    res.render('eliminar_us', {
-        pagina: 'Eliminar usuarios',
+router.get('/eliminar_us', async(req, res) => {
+    const sql = "select id_usuario, nombre, cedula, correo, direccion, telefono, estado, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us";
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('eliminar_us', {
+                pagina: 'Eliminar usuarios',
+                datos: row
+            });
+        } else {
+            res.send(error)
+        }
+    });
+});
+router.get("/eliminar_usuario", async(req, res) => {
+    const id_usEl = req.query.id_us;
+    const sql = "delete from usuario where id_usuario= " + id_usEl;
+    console.log(sql);
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.redirect('/eliminar_us')
+        } else {
+            res.send(error)
+        }
     });
 });
 
@@ -129,15 +131,50 @@ router.get('/crear_us', (req, res) => {
 
 router.post('/crear_us', async(req, res) => {
     const { nombre, cedula, correo, passw, telf, dir, tipoUS } = req.body;
-    const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0], (error, rows, fields) => {
+    if (!req.file) {
+        const imagen = null
+        const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, imagen], (error, rows, fields) => {
+            if (!error) {
+                res.redirect('menu_gestionus');
+            } else {
+                res.send(error);
+            }
+        });
+    }
+    const resulIMG = await cloudinary.v2.uploader.upload(req.file.path);
+    const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, resulIMG.url], (error, rows, fields) => {
         if (!error) {
+            fs.unlink(req.file.path);
             res.redirect('/menu_usadmin');
         } else {
             res.send(error);
         }
     });
+
 });
+
+//USUARIO CONTADOR
+router.get('/menu_contador', (req, res) => {
+    res.render('menu_contador', {
+        pagina: 'Contador',
+
+    });
+});
+//CARRITO DE COMPRAS
+router.get('/datos_facturacion', (req, res) => {
+    res.render('datos_facturacion', {
+        pagina: 'Datos factura',
+    });
+});
+
+router.get('/tarj_credito', (req, res) => {
+    res.render('tarj_cred', {
+        pagina: 'Tarjeta de crédito',
+    });
+});
+
 
 router.get('/menu_gestionpd', (req, res) => {
     res.render('menu_gestionpd', {
@@ -198,6 +235,7 @@ router.get('/editar_datosUs', async(req, res) => {
         }
     });
 });
+
 
 router.post('/editar_datosUs', async(req, res) => {
     var cedula_q = req.query.ci

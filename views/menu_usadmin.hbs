@@ -8,11 +8,15 @@
     <div class="main row">
         <div class="col-md-6">
             <div id="espaciado_pag"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-user-friends"></i>&nbsp Gestión
-                usuarios</button>
+            <form action="/menu_gestionus">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-user-friends"></i>&nbsp Gestión
+                    usuarios</button>
+            </form>
             <div id="espaciado_boton"></div>
-            <button type="button" class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&nbsp Gestión
-                productos</button>
+            <form action="/menu_gestionpd">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-shopping-cart"></i>&nbsp Gestión
+                    productos</button>
+            </form>
             <div id="espaciado_pag"></div>
         </div>
 
@@ -23,8 +27,6 @@
             <div id="espaciado_boton"></div>
             <br>
         </div>
-
-
     </div>
 </div>
 {{> footer}}

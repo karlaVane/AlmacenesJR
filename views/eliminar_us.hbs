@@ -1,22 +1,91 @@
 {{> header}}
 {{> navbar_cs}}
-<div id='separacion'></div>
-<div id='barra'>
-<h2><i class="fas fa-user-times"></i>&nbsp ELIMINAR USUARIOS</h2>
-</div>
-<div class="container">
-<div class="main row">
-    <div class="col-md-6">
-        <div id="espaciado_pag">
+<form action="/menu_gestionus">
+    <div id='separacion'></div>
+    <div id="barra">
+        <h2><i class="fas fa-search"></i>&nbsp ELIMINAR USUARIOS</h2>
+    </div><br>
+    <div class="main row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Tipo</th>
+                    <th>Imagen</th>
+                    <th>ELIMINAR</th>
+                </tr>
+                {{#if datos}}
+                {{#each datos}}
+                <tr>
+                    <td>{{nombre}}</td>
+                    <td>{{cedula}}</td>
+                    <td>{{correo}}</td>
+                    <td>{{direccion}}</td>
+                    <td>{{telefono}}</td>
+                    <td>{{#if estado}}
+                        activo
+                        {{else}}
+                        Inactivo
+                        {{/if}}
+                    </td>
+                    <td>{{tipo}}</td>
+                    <td>
+                        {{#if imagen}}
+                        <img src="{{imagen}}" width="100%" height="100px"></img>
+                        {{else}}
+                        No tiene imagen
+                        {{/if}}
+                    </td>
+                    <td>
+                        <center><label data-toggle="modal" data-target="#pregunta" id="icono_mod"><i
+                                    class="fas fa-user-slash"></label></i>
+                        </center>
+                        <!-- Modal -->
+                        <div class="modal fade" id="pregunta" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro de eliminar a {{nombre}}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                        <button class="btn btn-success"><a
+                                                href="/eliminar_usuario?id_us={{id_usuario}}">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {{/each}}
+                {{else}}
+                <center>No existen datos</center>
+                {{/if}}
+            </table>
+            <div id="espaciado_pag">
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
         </div>
-        <h1>Tabla</h1>
-        <div id="espaciado_pag">
-        </div>
-        <center>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
+        <div class="col-md-1"></div>
+        <div id="espaciado_pag"></div>
     </div>
 
-</div>
-</div>
+
+</form>
 {{> footer}}

@@ -125,3 +125,13 @@ th {
     color: white;
     text-align: center;
 }
+
+#columna_imagen {
+    text-align: center;
+}
+
+a:link,
+a:visited,
+a:active {
+    text-decoration: none;
+}

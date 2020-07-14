@@ -1,22 +1,65 @@
 {{> header}}
 {{> navbar_cs}}
 <div id='separacion'></div>
-<div id='barra'>
-<h2><i class="fas fa-edit"></i>&nbsp MODIFICAR PRODUCTO</h2>
-</div>
+<div id="barra">
+    <h2><i class="fas fa-search"></i>&nbsp MODIFICAR PRODUCTO</h2>
+</div><br>
 <div class="container">
-<div class="main row">
-    <div class="col-md-6">
-        <div id="espaciado_pag">
-        </div>
-        <h1>Tabla</h1>
-        <div id="espaciado_pag">
-        </div>
-        <center>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
+    <div style="text-align: right;">
+        <form action="/buscar_categ_modificar" method="POST">
+            Buscar por:
+            <select id="inputState" name="categ_prod" required='true'>
+                <option selected>Escoga una opción</option>
+                <option value="1">Colchón</option>
+                <option value="2">Almohadas</option>
+                <option value="3">Sofá cama</option>
+                <option value="4">Complementos</option>
+                <option value="5">Todo</option>
+            </select>
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+        </form>
     </div>
-
 </div>
-</div>
+<BR>
+<form action="/menu_gestionpd">
+    <div class="main row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table class="table">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Venta</th>
+                    <th>Precio Compra</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                    <th>Editar</th>
+                </tr>
+                {{#each datos}}
+                <tr>
+                    <td>{{nombre_prod}}</td>
+                    <td style="text-align: justify;">{{descripcion}}</td>
+                    <td style="text-align: center;">{{cantidad}}</td>
+                    <td>${{precio_venta}}</td>
+                    <td>${{precio_compra}}</td>
+                    <td>{{categoria}}</td>
+                    <td><img src="{{imagen}}" width="200px" height="200px"></img></td>
+                    <td>
+                        <center><a href="/editar_prod?idprod={{id_prod}}" id='icono_mod'><i class="fas fa-edit"></a></i>
+                        </center>
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+            <div id="espaciado_pag">
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
+        </div>
+        <div class="col-md-1"></div>
+        <div id="espaciado_pag"></div>
+    </div>
+</form>
 {{> footer}}

@@ -169,19 +169,34 @@ router.get('/editar_datosUs', async(req, res) => {
 });
 router.post('/editar_datosUs', async(req, res) => {
     var cedula_q = req.query.ci
+    var resultIMG;
+    var sql;
     const { nombre, cedula, correo, dir, telf, tipoUS } = req.body;
-    const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
-    const sql = "update usuario set nombre= '";
-    await DB.query(sql + nombre + "' ,cedula = '" + cedula + "', correo='" + correo +
-        " ', direccion='" + dir + "',telefono='" + telf + "',id_us= " + tipoUS +
-        ",imagen= '" + resultIMG.url + "' where cedula = '" + cedula_q + "'", (error, rows, fields) => {
-            if (!error) {
-                fs.unlink(req.file.path);
-                res.redirect('/consultar_us');
-            } else {
-                res.send(error);
-            }
-        });
+    if (!req.file) {
+        sql = "update usuario set nombre= '";
+        await DB.query(sql + nombre + "' ,cedula = '" + cedula + "', correo='" + correo +
+            " ', direccion='" + dir + "',telefono='" + telf + "',id_us= '" + tipoUS +
+            "' where cedula = '" + cedula_q + "'", (error, rows, fields) => {
+                if (!error) {
+                    res.redirect('/consultar_us');
+                } else {
+                    res.send(error);
+                }
+            });
+    } else {
+        resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+        sql = "update usuario set nombre= '";
+        await DB.query(sql + nombre + "' ,cedula = '" + cedula + "', correo='" + correo +
+            " ', direccion='" + dir + "',telefono='" + telf + "',id_us= " + tipoUS +
+            ",imagen= '" + resultIMG.url + "' where cedula = '" + cedula_q + "'", (error, rows, fields) => {
+                if (!error) {
+                    fs.unlink(req.file.path);
+                    res.redirect('/consultar_us');
+                } else {
+                    res.send(error);
+                }
+            });
+    }
 });
 
 ///GESTION DE PRODUCTOS ADMINISTRADOR
@@ -293,12 +308,87 @@ router.post('/buscar_categ_eliminado', async(req, res) => {
     });
 });
 
-router.get('/modificar_pd', (req, res) => {
-    res.render('modificar_pd', {
-        pagina: 'Modificar producto',
+router.get('/modificar_pd', async(req, res) => {
+    const sql = "select id_prod, nombre_prod, descripcion, cantidad, precio_venta, precio_compra, categoria, imagen from producto, categoria where producto.id_categoria=categoria.id_categoria";
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('modificar_pd', {
+                pagina: 'modificar producto',
+                datos: row
+            });
+        } else {
+            res.send(error)
+        }
     });
 });
 
+router.post('/buscar_categ_modificar', async(req, res) => {
+    var categ_prod = req.body.categ_prod;
+    var sql;
+    if (categ_prod == '5') {
+        sql = "select id_prod,nombre_prod,descripcion,cantidad,precio_venta,precio_compra,categoria,imagen" +
+            " from producto, categoria where producto.id_categoria = categoria.id_categoria";
+    } else {
+        sql = "select id_prod,nombre_prod,descripcion,cantidad,precio_venta,precio_compra,categoria,imagen" +
+            " from producto, categoria where producto.id_categoria = categoria.id_categoria and producto.id_categoria =" + categ_prod;
+    }
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('modificar_pd', { pagina: 'Modificar Producto', datos: row });
+        } else {
+            res.send(error);
+        }
+    });
+});
+///////////////////////////////////
+router.get('/editar_prod', async(req, res) => {
+    var id_producto = req.query.idprod;
+    const sql = "select id_prod, nombre_prod, descripcion, cantidad, precio_venta, precio_compra, categoria, producto.id_categoria, imagen from producto, categoria where producto.id_categoria=categoria.id_categoria" +
+        " and id_prod = " + id_producto;
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('editar_prod', {
+                pagina: 'Editar productos',
+                datos: row,
+            });
+        } else {
+            res.send(error)
+        }
+    });
+});
+router.post('/editar_prod', async(req, res) => {
+    var producto_q = req.query.id_prod
+    var resultIMG;
+    var sql;
+    const { name, categ, desc, precio_compra, precio_venta, cant } = req.body;
+
+    if (!req.file) {
+        sql = "update producto set nombre_prod= '";
+        await DB.query(sql + name + "' ,id_categoria = " + categ + ", descripcion='" + desc +
+            " ', precio_compra=" + precio_compra + ",precio_venta=" + precio_venta + ",cantidad= " + cant +
+            " where id_prod = " + producto_q, (error, rows, fields) => {
+                if (!error) {
+                    res.redirect('/consultar_pd_admin');
+                } else {
+                    res.send(error);
+                }
+            });
+    } else {
+        resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+        sql = "update producto set nombre_prod= '";
+        await DB.query(sql + name + "' ,id_categoria = " + categ + ", descripcion='" + desc +
+            " ', precio_compra=" + precio_compra + ",precio_venta=" + precio_venta + ",cantidad= " + cant +
+            ",imagen= '" + resultIMG.url + "' where id_prod = " + producto_q, (error, rows, fields) => {
+                if (!error) {
+                    fs.unlink(req.file.path);
+                    res.redirect('/consultar_pd_admin');
+                } else {
+                    res.send(error);
+                }
+            });
+    }
+});
+///////////////////////////////////////////////
 
 //USUARIO CONTADOR
 router.get('/menu_contador', (req, res) => {

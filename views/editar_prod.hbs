@@ -6,26 +6,26 @@
         var compra = parseFloat(document.getElementById('precio_compra').value);
         var venta = Math.round(parseFloat(compra + ((compra * 25) / 100)));
         input.setAttribute('value', venta);
-        }
+    }
 </script>
-
+{{#each datos}}
 <div id='separacion'></div>
 <div id='barra'>
-    <h2><i class="fas fa-pencil-alt"></i>&nbsp CREAR PRODUCTO</h2>
+    <h2><i class="fas fa-pencil-alt"></i>&nbsp EDITAR PRODUCTO</h2>
 </div>
 <br><br>
 <div class="main row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form action="/crear_pd" method="POST" enctype="multipart/form-data">
+        <form action="/editar_prod?id_prod={{id_prod}}" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
-                <input type="text" class="form-control" name="name" id="nombre" placeholder="Nombre" required='true'>
+                <input type="text" class="form-control" name="name" id="nombre" value="{{nombre_prod}}" placeholder="Nombre" required='true'>
             </div>
 
             <label>Categoría</label>
-            <select id="inputState" class="form-control" name="categ" required='true'>
-                <option selected>Escoga una opción</option>
+            <select id="inputState" class="form-control" name="categ" required='true' >
+                <option selected="{{id_categoria}}" value="{{id_categoria}}">Opción seleccionada {{categoria}}</option>
                 <option value="1">Colchón</option>
                 <option value="2">Almohadas</option>
                 <option value="3">Sofa cama</option>
@@ -36,14 +36,14 @@
                 <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
                 <br>
                 <textarea name="desc" class="form-control" rows="10" cols="50" required='true'
-                    placeholder="Descripción"></textarea>
+                    placeholder="Descripción">{{descripcion}}</textarea>
             </div>
             <div class="form-group">
                 <label>Precio Compra &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
                 <div class="main row">
                     <div class="col-md-8">
                         <input type="number" step="any" class="form-control" name="precio_compra" id="precio_compra"
-                            placeholder="Precio" required='true'>
+                            placeholder="Precio" required='true'value="{{precio_compra}}">
                     </div>
                     <div class="com-md-4">
                         <button type="button" class="btn btn-success" onclick=calculo_precioVenta()>Calcular precio
@@ -53,27 +53,29 @@
             </div>
             <div class="form-group">
                 <label>Precio Venta &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
-                <input class="form-control" name="precio_venta" id='precio_venta'>
+                <input class="form-control" name="precio_venta" id='precio_venta' value="{{precio_venta}}">
             </div>
             <div class="form-group">
                 <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
                 <input type="number" class="form-control" name="cant" id="cantidad" placeholder="Cantidad"
-                    required='true'>
+                    required='true' value="{{cantidad}}">
             </div>
             <div class="form-group">
                 <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+                <img src="{{imagen}}" width="200" height="200">
                 <br>
                 <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif"
-                    required='true'>
+                    src="{{imagen}}">
             </div>
             <hr>
+{{/each}}
             <center>
-                
-                    <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">
+
+                <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">
                         <i class="fas fa-envelope"></i>&nbsp Regresar</button></a>
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i>&nbsp Ingresar producto</button>
+                    <i class="fas fa-envelope"></i>&nbsp Aceptar</button>
             </center>
             <br><br>
 

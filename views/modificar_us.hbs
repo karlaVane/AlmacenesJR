@@ -1,5 +1,6 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
+{{> mensaje}}
 <form action="/menu_gestionus">
 <div id='separacion'></div>
 <div id="barra">
@@ -36,7 +37,7 @@
                 <td>{{tipo}}</td>
                 <td>
                     {{#if imagen}}
-                    <img src="{{imagen}}" width="100%" height="100px"></img>
+                    <img src="{{imagen}}" width="160px" height="150px"></img>
                     {{else}}
                     No tiene imagen
                     {{/if}}

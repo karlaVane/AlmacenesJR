@@ -1,5 +1,5 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
 <div id="separacion">
 </div>
 <div id="barra">
@@ -7,6 +7,7 @@
 </div>
 <br>
 <div class="container">
+    {{> mensaje}}
     <div class="main row">
         <div class="col-md-3">
         </div>
@@ -14,7 +15,7 @@
             <div id="espaciado_boton">
                 <form action="/crear_us" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>Ingrese el nombre &nbsp <i class="fas fa-user" style="color: #160F5B;"></i></label>
+                        <label>Ingrese el nombre de Usuario &nbsp <i class="fas fa-user" style="color: #160F5B;"></i></label>
                         <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp"
                             placeholder="Nombre" required='true'>
                         <br>
@@ -43,7 +44,7 @@
                         <label>Tipo de usuario &nbsp<i class="fas fa-id-badge" style="color:#160F5B;"></i></label>
                         <br>
                         <select class="form-control" name="tipoUS" required='true'>
-                            <option value="2">Contador</option>
+                            <option value="2" selected="2">Contador</option>
                             <option value="1">Administrador</option>
                         </select>
                         <br>

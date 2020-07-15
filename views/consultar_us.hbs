@@ -1,5 +1,6 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
+{{> mensaje}}
 <div id='separacion'></div>
 <div id="barra">
     <h2><i class="fas fa-search"></i>&nbsp CONSULTAR USUARIOS</h2>
@@ -36,7 +37,7 @@
                     <td>{{tipo}}</td>
                     <td id="columna_imagen">
                         {{#if imagen}}
-                        <img src="{{imagen}}" width="70%" height="100px"></img>
+                        <img src="{{imagen}}" width="70%" height="200px"></img>
                         {{else}}
                         No tiene imagen
                         {{/if}}

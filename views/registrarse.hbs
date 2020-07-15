@@ -1,7 +1,8 @@
 {{> header}}
-{{> navbar_is}}
-<br><br><br><br>
+{{> navbar}}
+<div id='separacion'></div>
 <div class="container">
+    {{> mensaje}}
     <div class="main row">
         <div class="col-md-3">
         </div>
@@ -16,7 +17,7 @@
                         <div class="container">
                             <form method="POST" action="/registrarse">
                                 <div class="form-group">
-                                    <label>Ingrese el nombre &nbsp <i class="fas fa-user"
+                                    <label>Ingrese el nombre de Usuario &nbsp <i class="fas fa-user"
                                             style="color: #160F5B;"></i></label>
                                     <input type="text" class="form-control" id="nombre" name="nombre"
                                         aria-describedby="emailHelp" placeholder="Nombre" required='true'>
@@ -37,12 +38,6 @@
                                     <label>Ingrese la contraseña &nbsp<i class="fas fa-key"
                                             style="color:#160F5B;"></i></label>
                                     <input type="password" class="form-control" id="pwd1" name="passw" required='true'
-                                        placeholder="Password">
-                                </div>
-                                <div class="form-group">
-                                    <label>Repetir la contraseña &nbsp<i class="fas fa-key"
-                                            style="color:#160F5B;"></i></label>
-                                    <input type="password" class="form-control" id="pwd2" required='true'
                                         placeholder="Password">
                                 </div>
                                 <div class="form-group">

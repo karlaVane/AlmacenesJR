@@ -35,6 +35,20 @@ table {
     text-align: center;
 }
 
+#seleccion_pd {
+    background-color: #4C9DC2;
+    color: white;
+    text-align: center;
+    font-style: italic;
+    font-size: x-large;
+}
+
+#btn_añadir {
+    width: 150px;
+    color: white;
+    font-size: medium;
+}
+
 #barra_promociones {
     background-color: #736F6E;
     padding: 10px;
@@ -98,6 +112,13 @@ table {
     background-color: #4C9DC2;
     color: white;
     padding: 5px;
+}
+
+#nombre_prod_selec {
+    background-color: #F7EE68;
+    color: black;
+    padding: 5px;
+    font-style: inherit;
 }
 
 #promocion {

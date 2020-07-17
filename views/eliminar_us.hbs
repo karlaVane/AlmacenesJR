@@ -1,5 +1,6 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
+{{> mensaje}}
 <form action="/menu_gestionus">
     <div id='separacion'></div>
     <div id="barra">
@@ -37,7 +38,7 @@
                     <td>{{tipo}}</td>
                     <td>
                         {{#if imagen}}
-                        <img src="{{imagen}}" width="100%" height="100px"></img>
+                        <img src="{{imagen}}" width="160px" height="150px"></img>
                         {{else}}
                         No tiene imagen
                         {{/if}}
@@ -63,7 +64,7 @@
                                     <div class="modal-footer">
                                         <button class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                         <button class="btn btn-success"><a
-                                                href="/eliminar_usuario?id_us={{id_usuario}}">Aceptar</button>
+                                                href="/eliminar_usuario?id_us={{id_usuario}}&img={{id_img}}">Aceptar</button>
                                     </div>
                                 </div>
                             </div>

@@ -1,12 +1,13 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
+{{> mensaje}}
 <script type="text/javascript">
     function calculo_precioVenta() {
         var input = document.getElementById("precio_venta");
         var compra = parseFloat(document.getElementById('precio_compra').value);
         var venta = Math.round(parseFloat(compra + ((compra * 25) / 100)));
         input.setAttribute('value', venta);
-        }
+    }
 </script>
 
 <div id='separacion'></div>
@@ -68,8 +69,8 @@
             </div>
             <hr>
             <center>
-                
-                    <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">
+
+                <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">
                         <i class="fas fa-envelope"></i>&nbsp Regresar</button></a>
 
                 <button type="submit" class="btn btn-primary">

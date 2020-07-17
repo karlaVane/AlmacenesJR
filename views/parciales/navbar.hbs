@@ -1,12 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: black">
-    <a class="navbar-brand" href="#">
-    <img src="images/LOGO.png" width="80" height="40" alt="">
-  </a>
-   <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class='nav-item active'>
-                    <a class="nav-link" href="/"><i class="fas fa-user-plus"></i>      Registrarse<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-        </div>
+    <a class="navbar-brand" href="/">
+        <img src="images/LOGO.png" width="80" height="40" alt="">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+            {{#if usuario}}
+            <li class='nav-item mr-auto'>
+                <a class="nav-link" href="/menu_usadmin"><i class="fas fa-home"></i> Home </a>
+            </li>
+            <li class='nav-item'>
+                <a class="nav-link" href="/logout"><i class="fas fa-user-lock"></i> Cerrar Sesión </a>
+            </li>
+            {{else}}
+            <li class='nav-item '>
+                <a class="nav-link" href="/registrarse"><i class="fas fa-user-plus"></i>  Registrarse</a>
+            </li>
+            <li class='nav-item '>
+                <a class="nav-link" href="/inicio_sesion"><i class="fas fa-user"></i></i> Iniciar Sesión </a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
 </nav>

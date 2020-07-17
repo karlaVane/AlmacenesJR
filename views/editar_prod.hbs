@@ -1,5 +1,6 @@
 {{> header}}
-{{> navbar_cs}}
+{{> navbar}}
+{{> mensaje}}
 <script type="text/javascript">
     function calculo_precioVenta() {
         var input = document.getElementById("precio_venta");
@@ -17,14 +18,15 @@
 <div class="main row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-        <form action="/editar_prod?id_prod={{id_prod}}" method="POST" enctype="multipart/form-data">
+        <form action="/editar_prod?id_prod={{id_prod}}&img={{id_img}}" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
-                <input type="text" class="form-control" name="name" id="nombre" value="{{nombre_prod}}" placeholder="Nombre" required='true'>
+                <input type="text" class="form-control" name="name" id="nombre" value="{{nombre_prod}}"
+                    placeholder="Nombre" required='true'>
             </div>
 
             <label>Categoría</label>
-            <select id="inputState" class="form-control" name="categ" required='true' >
+            <select id="inputState" class="form-control" name="categ" required='true'>
                 <option selected="{{id_categoria}}" value="{{id_categoria}}">Opción seleccionada {{categoria}}</option>
                 <option value="1">Colchón</option>
                 <option value="2">Almohadas</option>
@@ -43,7 +45,7 @@
                 <div class="main row">
                     <div class="col-md-8">
                         <input type="number" step="any" class="form-control" name="precio_compra" id="precio_compra"
-                            placeholder="Precio" required='true'value="{{precio_compra}}">
+                            placeholder="Precio" required='true' value="{{precio_compra}}">
                     </div>
                     <div class="com-md-4">
                         <button type="button" class="btn btn-success" onclick=calculo_precioVenta()>Calcular precio
@@ -68,7 +70,7 @@
                     src="{{imagen}}">
             </div>
             <hr>
-{{/each}}
+            {{/each}}
             <center>
 
                 <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">

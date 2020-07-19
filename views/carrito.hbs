@@ -9,30 +9,38 @@
 <div class="container p-4">
     {{#if carIds}}
     <form action="/cardata?ids={{carIds}}" method="POST">
-    {{else}}
-    <form action="/cardata" method="POST">
-    {{/if}}
+        {{else}}
+        <form action="/cardata" method="POST">
+            {{/if}}
             <div class="row">
                 {{#each carrito}}
                 <div class="col-md-4">
                     <div class="card text-center">
+                        <div class="card-title" id="nombre_prod_selec">
+                            <label class="card-title text uppercase">
+                                {{nombre_prod}}
+                            </label>
+                        </div>
                         <div class="card-body">
-                            <div class="card-title" id="nombre_prod_selec">
-                                <label class="card-title text uppercase">
-                                    {{nombre_prod}}
-                                </label>
-                            </div>
-                            <img src="{{imagen}}" width="100%" height="100%">
-                            <p> <i class="fas fa-money-bill-alt"></i> <b>Precio: $</b>{{precio_venta}}
-                                <input type="number" id="c" name="{{id_car}}" min="1" max="{{cantidad}}" value="1">
+
+                            <img src="{{imagen}}" width="100%" height="300">
+                        </div>
+                        <div class="card-footer">
+                            <p> <i class="fas fa-money-bill-alt"></i> <b>Precio: $</b><label
+                                    id="precio{{id_car}}">{{precio_venta}}</label>
+                                <input type="number" id="cant{{id_car}}" name="{{id_car}}" min="1" max="{{cantidad}}"
+                                    value="{{cant_car}}"
+                                    onchange="actu_uni({{id_car}}, {{precio_venta}}, {{cant_car}});actualizar();">
                             </p>
                             <p>
                                 <a href="/delete/{{id_car}}" class="btn btn-secondary"><i class="fas fa-trash-alt"></i>
                                     Eliminar
                                     Compra</a>
-                                <a href="/comprar/{{id_car}}" class="btn btn-info"><i class="fas fa-check-circle"></i>
+                                <a id="comprar{{id_car}}" class="btn btn-info" onclick="calculo_T({{id_car}})"><i
+                                        class="fas fa-check-circle"></i>
                                     Comprar</a>
                             </p>
+
                         </div>
                     </div>
                 </div>
@@ -48,12 +56,46 @@
             </div>
             {{#if total}}
             <div class="form-group">
-                <center><label>Total: {{total}} &nbsp;<i class="fas fa-money-bill-alt"
+                <center>
+                    <label id="necia">Total: $<label id="tot">{{total}} </label> &nbsp;<i class="fas fa-money-bill-alt"
                             style="color: #160F5B;"></i></label>
                 </center>
             </div>
-            <center><button type="submit" class="btn btn-primary">Comprar Carrito </button></center>
+            <center>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i> Comprar
+                    Carrito</button>
+            </center>
             {{/if}}
         </form>
 </div>
+<script>
+    function calculo_T(id) {
+        var comprar = document.getElementById("comprar" + id);
+        var precio = document.getElementById("precio" + id).innerHTML;
+        var cantidad = document.getElementById("cant" + id).value;
+        //console.log("Precio Producto ->", precio, "cantidad ->",cantidad, "Costos unitario ->", precio*cantidad)
+        comprar.setAttribute('href', '/comprar/?id_car=' + id + '&cant=' + cantidad + '&precio=' + precio);
+
+    }
+
+    function actualizar() {
+        var ids = [{{ carIds }}];
+    var laberTot = document.getElementById("tot");
+    var mul = 0;
+    ids.forEach(id => {
+        var precio = document.getElementById("precio" + id).innerHTML;
+        console.log(precio)
+        mul += parseInt(precio)
+    });
+    laberTot.innerHTML = mul
+    }
+
+    function actu_uni(id, necia, cantIni) {
+        var mul = 0;
+        necia = necia / cantIni;
+        var cantidad = document.getElementById("cant" + id).value;
+        mul = necia * cantidad;
+        document.getElementById("precio" + id).innerHTML = mul;
+    }
+</script>
 {{> footer}}

@@ -35,6 +35,7 @@ router.post('/prodCarrito', isLoggedIn, registrado, async(req, res) => {
             if (!error) {
                 row.forEach(async producto => {
                     newcar.prod_id = producto.id_prod;
+                    newcar.total_producto = producto.precio_venta;
                     await DB.query('INSERT INTO cars SET ?', [newcar]);
                 });
                 res.redirect('/carrito');
@@ -48,43 +49,38 @@ router.post('/prodCarrito', isLoggedIn, registrado, async(req, res) => {
     }
 });
 
-router.get('/carrito', isLoggedIn, registrado, async(req, res) => {
-    const carrito = await DB.query('SELECT nombre_prod, producto.cantidad, imagen, precio_venta, id_car, cars.cantidad as cant_car from producto, cars WHERE producto.id_prod = cars.prod_id and cars.user_id =' + req.user.id_usuario);
-    var total = 0;
-    var carIds = [];
-    console.log(carrito);
-    if (carrito.length > 0) {
-        carrito.forEach(element => {
-            //var mul = element.precio_venta * element.cantidad
-            total += element.precio_venta
-            carIds.push(element.id_car)
-        });
+router.get('/comprar', async(req, res) => {
+    console.log(req.query);
+    const { id_car, cant, precio } = req.query;
+    var producto = await DB.query('SELECT id_prod from producto, cars where producto.id_prod = cars.prod_id and cars.user_id = ' + req.user.id_usuario + ' and cars.id_car = ' + id_car + ';')
+    newcompra = {
+        cant_comp: cant,
+        total: precio,
+        id_usuario: req.user.id_usuario,
+        id_prod: producto[0].id_prod
     }
-    res.render('carrito', { pagina: 'Carrito', carrito, total, carIds });
+    console.log(newcompra);
+    //DB.query('')
+    res.send('Ok')
 });
 
-router.get('/delete/:id', isLoggedIn, registrado, async(req, res) => {
-    const { id } = req.params;
-    await DB.query('DELETE FROM cars WHERE id_car = ?', [id]);
-    req.flash('exito', 'Producto Removido del Carrito Correctamente');
-    res.redirect('/carrito');
+router.get('/comprarv2', (req, res) => {
+    console.log(req.query);
+    res.send('Ok')
 });
 
-router.post('/cardata', async(req, res) => {
-    var ids = req.query.ids;
-    var array_ids = ids.split(",").map(Number); //Cojo los datos separados por comas y .map(coge directamente el numero)
-    var precios = [];
-    for (let i = 0; i < array_ids.length; i++) {
-        var le = await DB.query('SELECT precio_venta from producto, cars WHERE producto.id_prod = cars.prod_id and cars.user_id = ' + req.user.id_usuario + ' and cars.id_car = ' + array_ids[i] + ';');
-        precios.push(await le[0].precio_venta)
-    }
-    var cant = req.body;
-    cant = Object.values(cant);
-    for (var i = 0; i < cant.length; i++) {
-        console.log("cantidad -> ", cant[i], " Id_carrito", array_ids[i], "Precios -> ", precios[i], "Total", (cant[i] * precios[i]));
-        await DB.query('UPDATE cars SET cantidad =' + cant[i] + ', total_producto =' + cant[i] * precios[i] + ' WHERE id_car =' + array_ids[i] + ';');
-    }
-    res.send("xD");
+
+router.get('/tarj_credito', isLoggedIn, registrado, (req, res) => {
+    res.render('tarj_cred', {
+        pagina: 'Tarjeta de crédito',
+    });
+});
+
+
+router.get('/datos_facturacion', isLoggedIn, registrado, (req, res) => {
+    res.render('datos_facturacion', {
+        pagina: 'Datos factura',
+    });
 });
 
 module.exports = router;

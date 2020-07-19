@@ -1,11 +1,11 @@
 footer {
-    position: relative;
     background-color: black;
     color: white;
     width: 100%;
+    position: fixed;
     bottom: 0px;
     text-align: center;
-    padding: 5px;
+    padding: 20px;
 }
 
 h2 {
@@ -155,4 +155,10 @@ a:link,
 a:visited,
 a:active {
     text-decoration: none;
+}
+
+#necia {
+    font-weight: bold;
+    font-size: xx-large;
+    color: #160F5B;
 }

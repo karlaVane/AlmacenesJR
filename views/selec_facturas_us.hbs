@@ -1,0 +1,16 @@
+{{> header}}
+{{> navbar}}
+<div id="separacion"></div>
+<br><br>
+<br><br>
+<div class="container p-6">
+    <div class="main row-center"></div>
+    {{#each facturas}}
+    <center>
+        <a href="/consultar_f?id_factura={{this}}" class="btn btn-secondary">Factura{{this}}</a>
+        <br>
+        <br>
+    </center>
+    {{/each}}
+</div>
+{{> footer}}

@@ -1,34 +1,14 @@
 {{> header}}
 {{> navbar}}
-<script type="text/javascript">
-    function showhideTarjeta_credito() {
-        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("credito").value
-
-        if (document.getElementById('credito').checked) {
-            document.getElementById('tarjeta_credito').style.display = 'block';
-            document.getElementById('tarjeta_debito').style.display = 'none';
-            document.getElementById('ayuda').style.display = 'none';
-            document.getElementById('btn_aceptar').style.display = 'block';
-        }
-    }
-    function showhideTarjeta_debito() {
-        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("debito").value
-
-        if (document.getElementById('debito').checked) {
-            document.getElementById('ayuda').style.display = 'none';
-            document.getElementById('tarjeta_debito').style.display = 'block';
-            document.getElementById('tarjeta_credito').style.display = 'none';
-            document.getElementById('ayuda').style.display = 'none';
-            document.getElementById('btn_aceptar').style.display = 'block';
-        }
-    }
-    function calcular_mes(radio) {
-        document.getElementById("mes_seleccionado").innerHTML = document.getElementById(radio).value + " Cuotas de: $"
-    }
-</script>
 <div id='separacion'></div>
 <br>
 {{> mensaje}}
+    {{#if id_car}}
+    <form action="/datos_tarj?id_car={{id_car}}" method="POST">
+    {{else}}
+     <form action="/datos_tarj?ids_car={{ids_car}}" method="POST">
+    {{/if}}
+
 <div class="main row">
     <div class="col-md-11">
         <center>
@@ -41,7 +21,6 @@
                 class="fas fa-info-circle"></i></button><br>
         <b style="color:#160F5B; font-size: small;">Ayuda</b>
     </div>
-
     <div class="container">
         <!--################para la ventana de ayuda#############################-->
         <div class="modal fade" id="modal_tarjeta">
@@ -72,13 +51,13 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <label class="radio-inline"><input type="radio" id="credito" onclick=showhideTarjeta_credito()
-                            name="optradio" value="crédito"> Tarjeta de
+                            name="tipoT" value="1"> Tarjeta de
                         crédito <i class="fas fa-credit-card" style="color:#160F5B ;"></i></label>
                 </div>
 
                 <div class="col-md-3">
-                    <label class="radio-inline"><input type="radio" name="optradio" id="debito"
-                            onclick=showhideTarjeta_debito() value="débito"> Tarjeta de débito <i
+                    <label class="radio-inline"><input type="radio" name="tipoT" id="debito"
+                            onclick=showhideTarjeta_debito() value="2"> Tarjeta de débito <i
                             class="fas fa-money-check-alt" style="color:#160F5B ;"></i></label>
                 </div>
                 <div class="col-md-3"></div>
@@ -134,7 +113,8 @@
         <div class="col-md-1">
         </div>
         <div class="col-md-5">
-            <label><b>Seleccionar meses a diferir:</b></label><br><br>
+            <label><b>Seleccionar meses a diferir:</b></label><br>
+            <label><b>Total a pagar:</b> ${{precio}} </label><br><br>
             <div class="radio" id="radio">
                 <label><input type="radio" name="meses" id="3m" value="3" onclick=calcular_mes(id)> 3 meses</label>
             </div>
@@ -154,16 +134,16 @@
         </div>
         <div class="col-md-5">
             <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXXXXXXXXXXXXXXX'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="numeroTarjC" placeholder='XXXXXXXXXXXXXXXX'
                 style="background-color: #78AEEE; width: 300px;"><br>
             <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
             </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='AAAAMM'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="fechaTarjC" placeholder='AAAAMM'
                 style="background-color: #78AEEE; width: 300px;"><br>
 
             <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
             </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXX'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="codigoTarjC" placeholder='XXX'
                 style="background-color: #78AEEE; width: 300px;">
         </div>
     </div>
@@ -178,7 +158,7 @@
             <table>
                 <tr id='descuento'>
                     <td id='celda'><i class="fas fa-shopping-cart" style="color: #160F5B ;"></i> Valor carrito</td>
-                    <td id='datos_td'>aqui poner el valor</td>
+                    <td id='datos_td'>${{precio}}</td>
                 </tr>
                 <tr id='descuento'>
                     <td id='celda'><i class="fas fa-percentage" style="color: #160F5B ;"></i> Descuento 10%</td>
@@ -190,21 +170,20 @@
                 </tr>
             </table>
         </div>
-
         <div class="col-md-1">
         </div>
         <div class="col-md-5">
             <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta: </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXXXXXXXXXXXXXXX'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="numeroTarjD" placeholder='XXXXXXXXXXXXXXXX'
                 style="background-color: #78AEEE; width: 300px;"><br>
             <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de expiración:
             </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='AAAAMM'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="fechaTarjD" placeholder='AAAAMM'
                 style="background-color: #78AEEE; width: 300px;"><br>
 
             <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
             </label>
-            <input type="input" class="form-control" id="exampleInputPassword1" placeholder='XXX'
+            <input type="input" class="form-control" id="exampleInputPassword1" name="codigoTarjD" placeholder='XXX'
                 style="background-color: #78AEEE; width: 300px;">
         </div>
     </div>
@@ -215,11 +194,10 @@
         <div class="col-md-4"></div>
         <div class="col-md-2">
             <div id="espaciado_boton"></div>
-            <button type="submit" class="btn btn-primary" id="btn_regresar">
-                <i class="fas fa-arrow-circle-left" style="color: white;"></i>&nbsp Regresar</button>
+            <a href="/carrito" class="btn btn-primary" style="width: 250;"><i class="fas fa-arrow-circle-left" style="color: white;">
+            </i> Cancelar Compra</a>
             <div id="espaciado_boton"></div>
         </div>
-
         <div class="col-md-2">
             <div id="espaciado_boton"></div>
             <button type="submit" class="btn btn-primary" id='btn_aceptar' style="display: none;">
@@ -229,5 +207,31 @@
         <div class="col-md-4"></div>
     </div>
 </div>
+</form>
+<script type="text/javascript">
+    function showhideTarjeta_credito() {
+        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("credito").value
 
+        if (document.getElementById('credito').checked) {
+            document.getElementById('tarjeta_credito').style.display = 'block';
+            document.getElementById('tarjeta_debito').style.display = 'none';
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('btn_aceptar').style.display = 'block';
+        }
+    }
+    function showhideTarjeta_debito() {
+        document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("debito").value
+
+        if (document.getElementById('debito').checked) {
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('tarjeta_debito').style.display = 'block';
+            document.getElementById('tarjeta_credito').style.display = 'none';
+            document.getElementById('ayuda').style.display = 'none';
+            document.getElementById('btn_aceptar').style.display = 'block';
+        }
+    }
+    function calcular_mes(radio) {
+        document.getElementById("mes_seleccionado").innerHTML = document.getElementById(radio).value + " Cuotas de: $"
+    }
+</script>
 {{> footer}}

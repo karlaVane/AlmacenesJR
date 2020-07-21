@@ -1,0 +1,58 @@
+{{> header}}
+{{> navbar}}
+<div id="separacion"></div>
+<div class="container p-6"></div>
+{{#each compras}}
+<div class="main row-center">
+    <center>
+        <hr>
+        <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp ID Compra:
+            {{id_compra}}</label>
+        </hr>
+        <br><br><br>
+        <table>
+            <tr>
+                <td id="facturacion">
+                    <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Numero Factura: </label>
+                </td>
+                <td>
+                    <label class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">
+                        {{num_factura}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td id="facturacion">
+                    <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Fecha: </label>
+                </td>
+                <td>
+                    <label class="form-control" id="exampleInputPassword1"
+                        style="background-color: #78AEEE;">{{fecha}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td id="facturacion">
+                    <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp id_Pago:</label>
+                </td>
+                <td>
+                    <label class="form-control" id="exampleInputPassword1"
+                        style="background-color: #78AEEE;">{{id_pago}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td id="facturacion">
+                    <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp id_detalle: </label>
+                </td>
+                <td>
+                    <label class="form-control" id="exampleInputPassword1"
+                        style="background-color: #78AEEE;">{{id_detalle}}</label>
+                </td>
+            </tr>
+        </table>
+    </center>
+</div>
+</div>
+{{else}}
+{{> mensaje}}
+{{/each}}
+</div>
+{{> footer}}

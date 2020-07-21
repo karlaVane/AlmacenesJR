@@ -9,12 +9,13 @@ router.get('/carrito', isLoggedIn, registrado, async(req, res) => {
     var total = 0;
     var carIds = [];
     if (carrito.length > 0) {
-        carrito.forEach(element => {
-            var mul = (element.precio_venta * element.cant_car);
+        for (let i = 0; i < carrito.length; i++) {
+            var mul = (carrito[i].precio_venta * carrito[i].cant_car);
             total += mul;
-            carIds.push(element.id_car);
-            element.precio_venta = element.precio_venta * element.cant_car;
-        });
+            carIds.push(carrito[i].id_car);
+            carrito[i].precio_venta = carrito[i].precio_venta * carrito[i].cant_car;
+
+        };
     }
     res.render('carrito', { pagina: 'Carrito', carrito, total, carIds });
 });
@@ -37,11 +38,25 @@ router.post('/cardata', isLoggedIn, registrado, async(req, res) => {
     var cant = req.body;
     cant = Object.values(cant);
     for (var i = 0; i < cant.length; i++) {
-        console.log("cantidad -> ", cant[i], " Id_carrito", array_ids[i], "Precios -> ", precios[i], "Total", (cant[i] * precios[i]));
+        //console.log("cantidad -> ", cant[i], " Id_carrito", array_ids[i], "Precios -> ", precios[i], "Total", (cant[i] * precios[i]));
         await DB.query('UPDATE cars SET cantidad =' + cant[i] + ', total_producto =' + cant[i] * precios[i] + ' WHERE id_car =' + array_ids[i] + ';');
     }
-    res.redirect('/comprarv2');
+    res.redirect('/tarj_credito?ids_car=' + array_ids);
 });
 
+router.get('/p_individual', isLoggedIn, registrado, async(req, res) => {
+    const { id_car, cant, precio } = req.query;
+    try {
+        await DB.query('UPDATE cars SET cantidad =' + cant + ', total_producto =' + precio + ' WHERE id_car =' + id_car + ';', (error) => {
+            if (!error) {
+                res.redirect('/tarj_credito?id_car=' + id_car);
+            } else {
+                res.send(error);
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 module.exports = router;

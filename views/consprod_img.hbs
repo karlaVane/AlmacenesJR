@@ -1,0 +1,23 @@
+{{> header}}
+{{> navbar}}
+{{> mensaje}}
+
+<div id='separacion'></div>
+<div id='barra'>
+    <h2><i class="fas fa-pencil-alt"></i>&nbsp Buscar Imagen</h2>
+</div>
+<form action="/consultar_img" method="POST" enctype="multipart/form-data">
+<div class="form-group">
+    <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+    <br>
+    <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif" required='true'>
+</div>
+<hr>
+<center>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-envelope"></i>&nbsp Ingresar producto
+    </button>
+</center>
+</form>
+
+{{> footer}}

@@ -1,58 +1,69 @@
 {{> header}}
 {{> navbar}}
 <div id="separacion"></div>
-<div class="container p-6"></div>
-{{#each compras}}
-<div class="main row-center">
-    <center>
-        <hr>
-        <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp ID Compra:
-            {{id_compra}}</label>
-        </hr>
-        <br><br><br>
-        <table>
-            <tr>
-                <td id="facturacion">
-                    <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Numero Factura: </label>
-                </td>
-                <td>
-                    <label class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">
-                        {{num_factura}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td id="facturacion">
-                    <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Fecha: </label>
-                </td>
-                <td>
-                    <label class="form-control" id="exampleInputPassword1"
-                        style="background-color: #78AEEE;">{{fecha}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td id="facturacion">
-                    <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp id_Pago:</label>
-                </td>
-                <td>
-                    <label class="form-control" id="exampleInputPassword1"
-                        style="background-color: #78AEEE;">{{id_pago}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td id="facturacion">
-                    <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp id_detalle: </label>
-                </td>
-                <td>
-                    <label class="form-control" id="exampleInputPassword1"
-                        style="background-color: #78AEEE;">{{id_detalle}}</label>
-                </td>
-            </tr>
-        </table>
-    </center>
+<div id="barra">
+    <h2><i class="fas fa-search"></i>&nbsp Registro de facturas</h2>
+</div><br>
+<div class="main row">
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <form action="/fact_x_categ" method="POST">
+            Buscar por producto:
+            <select id="inputState" name="fact_categ" required='true'>
+                <option selected>Escoga una opción</option>
+                <option value="1">Colchón</option>
+                <option value="2">Almohadas</option>
+                <option value="3">Sofá cama</option>
+                <option value="4">Complementos</option>
+                <option value="5">Todo</option>
+            </select>
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button></form>
+    </div>
+    <div class="col-md-5">
+        <form action="/fact_x_cedula" method="POST">
+        Buscar por cédula de cliente:
+        <input type="tel" id="fact_ced" name="fact_ced" required='true'>
+        <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
 </div>
+<br>
+<div class="container ">
+    <table class="table">
+        <th><i class="fas fa-calendar-alt"></i>     Fecha</th>
+        <th><i class="fas fa-receipt"></i>      Factura</th>
+        <th><i class="fas fa-user"></i>     Cliente</th>
+        <th><i class="fas fa-id-card"></i>      Cédula</th>
+        <th><i class="fas fa-inbox"></i>        Producto</th>
+        <th><i class="fas fa-sort-numeric-up"></i>      Cantidad</th>
+        <th><i class="fas fa-dollar-sign"></i>      Total</th>
+        <th><i class="fas fa-money-check"></i>      Tarjeta</th>
+        
+        {{#if compras}}
+        {{#each compras}}
+        <tr>
+            <td>{{fecha}}</td>
+            <td style="text-align: center;">{{num_factura}}</td>
+            <td>{{nombre}}</td>
+            <td>{{cedula}}</td>
+            <td>{{nombre_prod}}</td>
+            <td style="text-align: center;">{{cant_comp}}</td>
+            <td style="text-align: center;">{{total}}</td>
+            <td>{{tarjeta}}</td>
+        </tr>
+        {{/each}}
+        {{else}}
+        La cédula ingresada es incorrecta o no existe
+        {{/if}}
+        
+    </table>
 </div>
-{{else}}
-{{> mensaje}}
-{{/each}}
-</div>
+<br>
+<center>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i>&nbsp <a href="/menu_contador"> Regresar</a>
+    </button>
+</center>
+<div id="separacion"></div>
 {{> footer}}

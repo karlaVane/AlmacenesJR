@@ -2,6 +2,7 @@ const { Router } = require('express');
 const DB = require('../models/myslq');
 const { isLoggedIn, registrado } = require('../lib/auth');
 const { encryptPassword } = require('../lib/helpers');
+const dateFormat = require('dateformat');
 
 const router = Router();
 
@@ -259,8 +260,11 @@ router.get('/facturas', isLoggedIn, registrado, async(req, res) => {
             }
         }
         facturas.sort();
-        console.log(facturas);
-        res.render('selec_facturas_us', { facturas })
+        //console.log(facturas);
+        consulta.forEach(consulta => {
+            consulta.fecha = dateFormat(consulta.fecha, "yyyy-mm-dd")
+        });
+        res.render('selec_facturas_us', { facturas: facturas, consulta: consulta })
     } else {
         req.flash('mensaje', 'No tiene Facturas');
         res.render('selec_facturas_us')
@@ -273,7 +277,7 @@ router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
     var fac = [];
     var compras = await DB.query('SELECT id_compra from compra where num_factura = ' + id_fac + ';');
     for (let i = 0; i < compras.length; i++) {
-        var consulta = await DB.query('SELECT compra.num_factura, compra.fecha, usuario.nombre, usuario.cedula, usuario.correo, usuario.direccion, producto.nombre_prod,' +
+        var consulta = await DB.query('SELECT compra.num_factura, compra.fecha, usuario.nombre, usuario.cedula, usuario.correo, usuario.direccion,usuario.telefono, producto.nombre_prod,' +
             'detalle_compra.cant_comp, detalle_compra.total, tipo_pago.tarjeta  FROM usuario, compra, detalle_compra, pago_cobro, producto, tipo_pago ' +
             'WHERE compra.id_detalle = detalle_compra.id_detalle ' +
             'and compra.id_pago = pago_cobro.id_pago ' +
@@ -284,8 +288,31 @@ router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
             ' and detalle_compra.id_usuario = ' + req.user.id_usuario + ';');
         fac.push(consulta[0]);
     }
+    var sum_total = 0
+    fac.forEach(fac => {
+        sum_total = sum_total + fac.total
+        fac.fecha = dateFormat(fac.fecha, "yyyy-mm-dd")
+    });
+
+    var fecha = consulta[0].fecha
+    var nombre = consulta[0].nombre
+    var cedula = consulta[0].cedula
+    var direccion = consulta[0].direccion
+    var telef = consulta[0].telefono
     console.log(fac);
-    res.render('facturas_us', { fac });
+
+    res.render('facturas_us', { fac: fac, fecha: fecha, nombre: nombre, cedula: cedula, direccion: direccion, telef: telef, sum_total: sum_total });
 });
+
+router.get('/consultar_img', (req, res) => {
+    res.render('consprod_img')
+});
+
+router.post('/consultar_img', async(req, res) => {
+    const resultIMG = req.file.path;
+    console.log(resultIMG);
+    res.send(resultIMG)
+});
+
 
 module.exports = router;

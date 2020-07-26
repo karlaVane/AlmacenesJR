@@ -1,0 +1,38 @@
+{{> header}}
+{{> navbar}}
+{{> mensaje}}
+<div id='separacion'></div>
+<div id="barra">
+    <h2><i class="fas fa-search"></i>&nbsp Etimacion de Ventas</h2>
+</div>
+<br><br>
+<div class="main row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <table class="table">
+            <tr>
+                <th>Mes</th>
+                <th>Predicción</th>
+                <th>Real</th>
+            </tr>
+            {{#each predic }}
+            <tr>
+                <td>{{mes}}</td>
+                <td>{{pred}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    <div class="cold-md-7">
+        <label>
+            {{#if img }}
+            <img src="{{ img }}" width="100%"></img>
+            {{else}}
+            No tiene imagen
+            {{/if}}
+        </label>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+{{> footer}}

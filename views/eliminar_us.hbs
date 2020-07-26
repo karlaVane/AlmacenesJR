@@ -6,20 +6,18 @@
     <div id="barra">
         <h2><i class="fas fa-search"></i>&nbsp ELIMINAR USUARIOS</h2>
     </div><br>
-    <div class="main row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
+    <div class="container">
             <table class="table">
                 <tr>
-                    <th>Nombre</th>
-                    <th>Cédula</th>
-                    <th>Correo</th>
-                    <th>Dirección</th>
-                    <th>Teléfono</th>
-                    <th>Estado</th>
-                    <th>Tipo</th>
-                    <th>Imagen</th>
-                    <th>ELIMINAR</th>
+                    <th id='tabla_cabeza'><i class="fas fa-user" style="color: white;"></i>  Nombre</th>
+                    <th id='tabla_cabeza'><i class="fas fa-id-card" style="color: white;"></i>    Cédula</th>
+                    <th id='tabla_cabeza'><i class="fas fa-envelope" style="color: white;"></i>   Correo</th>
+                    <th id='tabla_cabeza'><i class="fas fa-home" style="color:white;"></i>    Dirección</th>
+                    <th id='tabla_cabeza'><i class="fa fa-mobile"style="color: white;"></i>     Teléfono</th>
+                    <th id='tabla_cabeza'><i class="fas fa-toggle-on"></i>    Estado</th>
+                    <th id='tabla_cabeza'><i class="fas fa-id-badge" style="color:white"></i>      Tipo</th>
+                    <th id='tabla_cabeza'><i class="fas fa-image" style="color: white;"></i>    Imagen</th>
+                    <th id='tabla_cabeza'>Eliminar</th>
                 </tr>
                 {{#if datos}}
                 {{#each datos}}
@@ -38,7 +36,7 @@
                     <td>{{tipo}}</td>
                     <td>
                         {{#if imagen}}
-                        <img src="{{imagen}}" width="160px" height="150px"></img>
+                        <img src="{{imagen}}" width="120px" height="100px"></img>
                         {{else}}
                         No tiene imagen
                         {{/if}}
@@ -82,8 +80,7 @@
             <center>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
-        </div>
-        <div class="col-md-1"></div>
+       
         <div id="espaciado_pag"></div>
     </div>
 

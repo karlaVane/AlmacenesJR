@@ -5,7 +5,7 @@ footer {
     position: fixed;
     bottom: 0px;
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 h2 {
@@ -161,4 +161,8 @@ a:active {
     font-weight: bold;
     font-size: xx-large;
     color: #160F5B;
+}
+
+#tabla_cabeza {
+    font-size: small;
 }

@@ -2,67 +2,25 @@
 {{> navbar}}
 <div id="separacion"></div>
 <div class="container p-4"></div>
+
+Fecha: {{fecha}}<br>
+Nombre: {{nombre}}<br>
+Cédula: {{cedula}}<br>
+Dirección: {{direccion}}  Teléfono: {{telef}}
+<hr>
+<table class="table">
+    <tr>
+        <th>Cantidad</th>
+        <th>Producto</th>
+        <th>Precio</th>
+    </tr>
 {{#each fac}}
-<div class="main row-center">
-    {{> mensaje}}
-<center>
-    <hr>
-    <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp Datos factura: {{num_factura}}</label>
-    </hr>
-    <br><br><br>
-    <table>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Usuario: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;"> {{nombre}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Cédula: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{cedula}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Dirección: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{direccion}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp Producto:</label>
-            </td>
-            <td>
-               <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{nombre_prod}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Cantidad: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{cant_comp}}</label>
-            </td>
-        </tr>
-         <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Total: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{total}}</label>
-            </td>
-        </tr>
-    </table>
-</center>
-</div>
-</div>
+<tr>
+    <td>{{cant_comp}}</td>
+    <td>{{nombre_prod}}</td>
+    <td>{{total}}</td>
+</tr>
 {{/each}}
-</div>
+</table>
+<b>TOTAL: $</b>{{sum_total}}
 {{> footer}}

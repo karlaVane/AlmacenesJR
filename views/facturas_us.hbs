@@ -1,26 +1,71 @@
 {{> header}}
 {{> navbar}}
 <div id="separacion"></div>
-<div class="container p-4"></div>
+<br><br>
+<div class="main row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <center>
+            <h4><img src="images/logochaide.png" width="50px" height="50px">Almacenes JR Distribuidor autorizado</h4>
+        </center><br>
+        <div class="main row">
+            <div class="col-md-7">
+                <div id='datos_cliente_fac'>
+                    <b>Fecha: </b>{{fecha}}<br>
+                    <b>Nombre: </b>{{nombre}}<br>
+                    <b>Cédula: </b>{{cedula}}<br>
+                    <b>Dirección: </b>{{direccion}}<br>
+                    <b>Teléfono: </b>{{telef}}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="cuadrito_factura">
+                    <b>Factura N°: </b>{{numfac}}<br>
+                    <b>RUC: </b>xxxxxxxxxxxxx<br>
+                    <b>Dirección: </b>Av. Teniente Hugo Ortiz S11-138<br>
+                    <b>Teléfono: </b>02-2610-555
+                </div>
+            </div>
 
-Fecha: {{fecha}}<br>
-Nombre: {{nombre}}<br>
-Cédula: {{cedula}}<br>
-Dirección: {{direccion}}  Teléfono: {{telef}}
-<hr>
-<table class="table">
-    <tr>
-        <th>Cantidad</th>
-        <th>Producto</th>
-        <th>Precio</th>
-    </tr>
-{{#each fac}}
-<tr>
-    <td>{{cant_comp}}</td>
-    <td>{{nombre_prod}}</td>
-    <td>{{total}}</td>
-</tr>
-{{/each}}
-</table>
-<b>TOTAL: $</b>{{sum_total}}
+        </div>
+        <hr>
+        <table class="table">
+            <tr>
+                <th style="width: 100px;">Cantidad</th>
+                <th>Producto</th>
+                <th style="width: 100px;">Precio</th>
+            </tr>
+            {{#each fac}}
+            <tr>
+                <td style="width: 100px; text-align: center;">{{cant_comp}}</td>
+                <td>{{nombre_prod}}</td>
+                <td style="width: 100px; text-align: center;">{{total}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        <table id='calculos_factura'>
+            <tr>
+                <td id="tabla_cal"><b>Sub Total: </b></td>
+                <td style="width: 100px; text-align: center;">${{subtotal}}</td>
+            </tr>
+            <tr>
+                <td id="tabla_cal"><b>IVA 12%: </b></td>
+                <td style="width: 100px; text-align: center;">${{iva}}</td>
+            </tr>
+            <tr>
+                <td id="tabla_cal"><b>TOTAL: </b></td>
+                <td style="width: 100px;text-align: center;">${{sum_total}}</td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<div class="col-md-2"></div>
+<div id="espaciado_boton"></div>
+<center>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-arrow-left"></i>&nbsp <a href="/facturas"> Regresar</a>
+    </button>
+</center>
+<br>
 {{> footer}}

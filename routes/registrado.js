@@ -3,7 +3,7 @@ const DB = require('../models/myslq');
 const { isLoggedIn, registrado } = require('../lib/auth');
 const { encryptPassword } = require('../lib/helpers');
 const dateFormat = require('dateformat');
-
+const fs = require('fs-extra');
 const router = Router();
 
 
@@ -264,7 +264,7 @@ router.get('/facturas', isLoggedIn, registrado, async(req, res) => {
         consulta.forEach(consulta => {
             consulta.fecha = dateFormat(consulta.fecha, "yyyy-mm-dd")
         });
-        res.render('selec_facturas_us', { facturas: facturas, consulta: consulta })
+        res.render('selec_facturas_us', { facturas: facturas, consulta: consulta, pagina: 'Mis facturas' })
     } else {
         req.flash('mensaje', 'No tiene Facturas');
         res.render('selec_facturas_us')
@@ -294,25 +294,49 @@ router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
         fac.fecha = dateFormat(fac.fecha, "yyyy-mm-dd")
     });
 
+    var numfac = consulta[0].num_factura
     var fecha = consulta[0].fecha
     var nombre = consulta[0].nombre
     var cedula = consulta[0].cedula
     var direccion = consulta[0].direccion
     var telef = consulta[0].telefono
+    var subtotal = (sum_total / 1.12).toFixed(2)
+    var iva = ((subtotal * 12) / 100).toFixed(2)
     console.log(fac);
-
-    res.render('facturas_us', { fac: fac, fecha: fecha, nombre: nombre, cedula: cedula, direccion: direccion, telef: telef, sum_total: sum_total });
+    res.render('facturas_us', {
+        fac: fac,
+        fecha: fecha,
+        nombre: nombre,
+        cedula: cedula,
+        direccion: direccion,
+        telef: telef,
+        sum_total: sum_total,
+        numfac: numfac,
+        subtotal: subtotal,
+        iva: iva,
+        pagina: 'Mis facturas'
+    });
 });
 
-router.get('/consultar_img', (req, res) => {
+router.get('/consultar_img', isLoggedIn, registrado, (req, res) => {
     res.render('consprod_img')
 });
 
-router.post('/consultar_img', async(req, res) => {
-    const resultIMG = req.file.path;
-    console.log(resultIMG);
-    res.send(resultIMG)
+router.post('/consultar_img', isLoggedIn, registrado, async(req, res) => {
+    var resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+    var clasi = await axios.get(`http://127.0.0.1:5000/clasificador?img=${resultIMG.url}`);
+    console.log(clasi.data);
+    fs.unlink(req.file.path);
+    await cloudinary.v2.uploader.destroy(resultIMG.public_id);
+    var respuesta = await DB.query('select * from producto, categoria where categoria.id_categoria = producto.id_categoria and  producto.id_categoria = ' + clasi.data + ';');
+    var categ
+    if (respuesta.length > 0) {
+        categ = respuesta[0].categoria;
+    } else {
+        cat = await DB.query('select * from categoria where id_categoria = ' + clasi.data + ';');
+        categ = cat[0].categoria;
+    }
+    res.render('mostrar_prod_clasif', { data: respuesta, categ });
 });
-
 
 module.exports = router;

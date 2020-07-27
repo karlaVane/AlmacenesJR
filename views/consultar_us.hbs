@@ -5,55 +5,66 @@
 <div id="barra">
     <h2><i class="fas fa-search"></i>&nbsp CONSULTAR USUARIOS</h2>
 </div>
-<br><br>
-<form action="/menu_gestionus">
-    <div class="main row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <table class="table">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Cédula</th>
-                    <th>Correo</th>
-                    <th>Dirección</th>
-                    <th>Teléfono</th>
-                    <th>Estado</th>
-                    <th>Tipo</th>
-                    <th>Imagen</th>
-                </tr>
-                {{#each datos}}
-                <tr>
-                    <td>{{nombre}}</td>
-                    <td>{{cedula}}</td>
-                    <td>{{correo}}</td>
-                    <td>{{direccion}}</td>
-                    <td>{{telefono}}</td>
-                    <td>{{#if estado}}
-                        activo
-                        {{else}}
-                        Inactivo
-                        {{/if}}
-                    </td>
-                    <td>{{tipo}}</td>
-                    <td id="columna_imagen">
-                        {{#if imagen}}
-                        <img src="{{imagen}}" width="150px" height="180px"></img>
-                        {{else}}
-                        No tiene imagen
-                        {{/if}}
-                    </td>
-                </tr>
-                {{/each}}
-            </table>
-            <div id="espaciado_pag">
-            </div>
-            <center>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-arrow-left"></i>&nbsp Regresar</button>
-            </center>
-            <div id="espaciado_boton"></div>
-        </div>
-        <div class="col-md-1"></div>
+<br>
+<div class="container">
+    <div style="text-align: right;">
+        <form action="/buscar_us_categ" method="POST">
+            Buscar por categoría:
+            <select id="inputState" name="us_categ" required='true'>
+                <option selected>Escoga una opción</option>
+                <option value="1">Administrador</option>
+                <option value="2">Contador</option>
+                <option value="3">Registrado</option>
+                <option value="4">Todos</option>
+            </select>
+            <button type="submit" class="btn btn-info"><i class="fas fa-search"></i></button>
+        </form>
     </div>
+    <br>
+    <form action="/menu_gestionus">
+
+        <table class="table">
+            <tr>
+                <th id='tabla_cabeza'><i class="fas fa-user" style="color: white;"></i> Nombre</th>
+                <th id='tabla_cabeza'><i class="fas fa-id-card" style="color: white;"></i> Cédula</th>
+                <th id='tabla_cabeza'><i class="fas fa-envelope" style="color: white;"></i> Correo</th>
+                <th id='tabla_cabeza'><i class="fas fa-home" style="color:white;"></i> Dirección</th>
+                <th id='tabla_cabeza'><i class="fa fa-mobile" style="color: white;"></i> Teléfono</th>
+                <th id='tabla_cabeza'><i class="fas fa-toggle-on"></i> Estado</th>
+                <th id='tabla_cabeza'><i class="fas fa-id-badge" style="color:white"></i> Tipo</th>
+                <th id='tabla_cabeza'><i class="fas fa-image" style="color: white;"></i> Imagen</th>
+            </tr>
+            {{#each datos}}
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{cedula}}</td>
+                <td>{{correo}}</td>
+                <td>{{direccion}}</td>
+                <td>{{telefono}}</td>
+                <td>{{#if estado}}
+                    activo
+                    {{else}}
+                    Inactivo
+                    {{/if}}
+                </td>
+                <td>{{tipo}}</td>
+                <td id="columna_imagen">
+                    {{#if imagen}}
+                    <img src="{{imagen}}" width="120px" height="100px"></img>
+                    {{else}}
+                    No tiene imagen
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+        <div id="espaciado_boton"></div>
+        <center>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i>&nbsp Regresar</button>
+        </center>
+        <div id="espaciado_boton"></div>
+
+</div>
 </form>
 {{> footer}}

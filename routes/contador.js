@@ -90,87 +90,169 @@ router.post('/fact_x_cedula', isLoggedIn, contador, async(req, res) => {
 });
 
 router.get('/prediccion', isLoggedIn, contador, async(req, res) => {
+    var sql;
+    sql = 'Select fecha, sum(total) as total from compra, detalle_compra ' +
+        'where compra.id_detalle = detalle_compra.id_detalle ' +
+        "and compra.fecha > '2019-12-31' " +
+        "group by month(compra.fecha) " +
+        "order by (compra.fecha) "
+
     var pred = await axios.get('http://127.0.0.1:5000/predicciones');
     newpred = [];
-    //var img = await axios.get('http://127.0.0.1:5000/plot.png'); //consigo los bytes
     var img = "http://127.0.0.1:5000/plot.png";
-    console.log(pred.data.length);
+
+    var consulta_real = await DB.query(sql)
     for (let i = 0; i < pred.data.length; i++) {
+        var real;
         if (i == 0) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Enero",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
+
         if (i == 1) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Febrero",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
 
         if (i == 2) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Marzo",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 3) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Abril",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 4) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Mayo",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 5) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Junio",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 6) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Julio",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 7) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Agosto",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 8) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Septiembre",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 9) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Octubre",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 10) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Noviembre",
-                pred: pred.data[i]
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
         if (i == 11) {
+            if (consulta_real[i] === undefined) {
+                real = 0
+            } else {
+                real = consulta_real[i].total
+            }
             newpred.push({
                 mes: "Diciembre",
-                pred: pred.data[i],
+                pred: parseFloat(pred.data[i]).toFixed(2),
+                act: parseFloat(real).toFixed(2)
             });
         }
     }
-    res.render('estimaciones', { predic: newpred, img })
+    res.render('estimaciones', { predic: newpred, img: img, pagina: 'Predicciones' })
+
 });
 
 module.exports = router;

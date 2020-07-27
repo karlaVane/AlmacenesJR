@@ -166,3 +166,12 @@ a:active {
 #tabla_cabeza {
     font-size: small;
 }
+
+#calculos_factura {
+    float: right;
+}
+
+#tabla_cal {
+    width: 100px;
+    padding: 5px;
+}

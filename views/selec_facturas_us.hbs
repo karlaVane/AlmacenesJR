@@ -4,13 +4,9 @@
 <div id="barra">
     <h2><i class="fas fa-receipt"></i> Mis facturas</h2>
 </div><br>
-<div class="main row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-
+<center>
     {{#each facturas}}
     <a href="/consultar_f?id_factura={{this}}" class="btn btn-secondary">Factura {{this}}</a><br><br>
     {{/each}}
-    </div>
-</div>
+</center>
 {{> footer}}

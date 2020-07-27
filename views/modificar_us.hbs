@@ -2,24 +2,22 @@
 {{> navbar}}
 {{> mensaje}}
 <form action="/menu_gestionus">
-<div id='separacion'></div>
-<div id="barra">
-    <h2><i class="fas fa-search"></i>&nbsp MODIFICAR USUARIOS</h2>
-</div><br>
-<div class="main row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+    <div id='separacion'></div>
+    <div id="barra">
+        <h2><i class="fas fa-search"></i>&nbsp MODIFICAR USUARIOS</h2>
+    </div><br>
+    <div class="container">
         <table class="table">
             <tr>
-                <th>Nombre</th>
-                <th>Cédula</th>
-                <th>Correo</th>
-                <th>Dirección</th>
-                <th>Teléfono</th>
-                <th>Estado</th>
-                <th>Tipo</th>
-                <th>Imagen</th>
-                <th>Modificar</th>
+                <th id='tabla_cabeza'><i class="fas fa-user" style="color: white;"></i> Nombre</th>
+                <th id='tabla_cabeza'><i class="fas fa-id-card" style="color: white;"></i> Cédula</th>
+                <th id='tabla_cabeza'><i class="fas fa-envelope" style="color: white;"></i> Correo </th>
+                <th id='tabla_cabeza'><i class="fas fa-home" style="color:white;"></i> Dirección</th>
+                <th id='tabla_cabeza'><i class="fa fa-mobile" style="color: white;"></i> Teléfono</th>
+                <th id='tabla_cabeza'><i class="fas fa-toggle-on"></i> Estado</th>
+                <th id='tabla_cabeza'><i class="fas fa-id-badge" style="color:white"></i> Tipo</th>
+                <th id='tabla_cabeza'><i class="fas fa-image" style="color: white;"></i> Imagen</th>
+                <th id='tabla_cabeza'>Modificar</th>
             </tr>
             {{#each datos}}
             <tr>
@@ -37,7 +35,9 @@
                 <td>{{tipo}}</td>
                 <td>
                     {{#if imagen}}
-                    <img src="{{imagen}}" width="160px" height="150px"></img>
+                    <center>
+                        <img src="{{imagen}}" width="100px" height="100px"></img>
+                    </center>
                     {{else}}
                     No tiene imagen
                     {{/if}}
@@ -49,14 +49,11 @@
             </tr>
             {{/each}}
         </table>
-        <div id="espaciado_pag">
-        </div>
+        <div id="espaciado_boton"></div>
         <center>
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-arrow-left"></i>&nbsp Regresar</button>
+        </center>
+        <div id="espaciado_boton"></div>
     </div>
-    <div class="col-md-1"></div>
-    <div id="espaciado_pag"></div>
-</div>
 </form>
 {{> footer}}

@@ -1,0 +1,66 @@
+{{> header}}
+{{> navbar}}
+<div id='separacion'></div>
+<div id="seleccion_pd"><img src="https://res.cloudinary.com/seguvega/image/upload/v1594788816/logochaide_opwyck.png"
+        height="70"> Sueña con un mundo mejor...</div>
+{{> mensaje}}
+{{#if data}}
+<div class="container p-4" id="productos">
+    <center>Tu Imagen ingresada pertenece a la Categoria {{categ}}
+        <br> Productos Similares
+    </center>
+    <form action="/prodCarrito" method="POST">
+        <div class="row">
+            <div class="card-columns">
+                {{#each data}}
+                <div class="card">
+                    <center>
+                        <div class="card-title" id="nombre_prod_selec">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="check{{id_prod}}"
+                                    value="{{id_prod}}">
+                                <label class="form-check-label" for="gridCheck1">
+                                    {{nombre_prod}}
+                                </label>
+                            </div>
+                        </div>
+                    </center>
+                    <img src="{{imagen}}" class="card-img-top" width="100%" height="200">
+                    <div class="card-body">
+                        <center>
+                            <button class="btn btn-info" type="button" data-toggle="collapse"
+                                data-target="#{{palabra nombre_prod}}" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Mostrar descripcion
+                            </button>
+                            <div class="collapse" id="{{palabra nombre_prod}}">
+                                <p class="card-text" style="text-align: justify;">{{descripcion}}</p>
+                            </div>
+                        </center>
+                    </div>
+                    <div class="card-footer">
+                        <center>
+                            <i class="fas fa-hand-holding-usd"></i> <b>Precio:
+                            </b>${{precio_venta}}</td>
+                        </center>
+                    </div>
+
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <center>
+            <button type="submit" class="btn btn-primary" id="btn_añadir">Añadir <i
+                    class="fas fa-cart-arrow-down"></i></button>
+        </center>
+        <div id="espaciado_boton"></div>
+    </form>
+</div>
+{{else}}
+<center>
+    <h3>No Hay productos <br> Con Categoria {{categ}}</h3>
+</center>
+<div id="espaciado_boton"></div>
+{{/if}}
+
+{{> footer}}

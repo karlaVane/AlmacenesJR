@@ -187,6 +187,27 @@ router.post('/editar_datosUs', isLoggedIn, admin, async(req, res) => {
     }
 });
 
+
+///////////////////////////////
+router.post('/buscar_us_categ', isLoggedIn, admin, async(req, res) => {
+    var us_categ = req.body.us_categ;
+    var sql;
+    if (us_categ == '4') {
+        sql = "select nombre, cedula, correo, direccion, telefono, estado, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us";
+    } else {
+        sql = "select nombre, cedula, correo, direccion, telefono, estado, tipo,imagen from usuario, tipo_usuario where usuario.id_us=tipo_usuario.id_us " +
+            " and usuario.id_us =" + us_categ;
+    }
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('consultar_us', { pagina: 'Usuarios', datos: row });
+        } else {
+            res.send(error);
+        }
+    });
+});
+/////////////////////////////////////
+
 ///GESTION DE PRODUCTOS ADMINISTRADOR
 router.get('/menu_gestionpd', isLoggedIn, admin, (req, res) => {
     res.render('menu_gestionpd', {

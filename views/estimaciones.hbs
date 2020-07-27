@@ -3,7 +3,7 @@
 {{> mensaje}}
 <div id='separacion'></div>
 <div id="barra">
-    <h2><i class="fas fa-search"></i>&nbsp Etimacion de Ventas</h2>
+    <h2><i class="fas fa-search"></i>   Etimacion de Ventas</h2>
 </div>
 <br><br>
 <div class="main row">
@@ -19,6 +19,7 @@
             <tr>
                 <td>{{mes}}</td>
                 <td>{{pred}}</td>
+                <td>{{act}}</td>
             </tr>
             {{/each}}
         </table>
@@ -26,7 +27,7 @@
     <div class="cold-md-7">
         <label>
             {{#if img }}
-            <img src="{{ img }}" width="100%"></img>
+            <img src="{{ img }}" width="900" height="600"></img>
             {{else}}
             No tiene imagen
             {{/if}}

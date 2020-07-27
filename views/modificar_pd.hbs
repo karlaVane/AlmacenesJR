@@ -28,14 +28,14 @@
         <div class="col-md-10">
             <table class="table">
                 <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Cantidad</th>
-                    <th>Precio Venta</th>
-                    <th>Precio Compra</th>
-                    <th>Categoría</th>
-                    <th>Imagen</th>
-                    <th>Editar</th>
+                    <th id='tabla_cabeza'> <i class="fas fa-cart-plus"></i>       Nombre</th>
+                    <th id='tabla_cabeza'><i class="fas fa-file-alt"></i>     Descripción</th>
+                    <th id='tabla_cabeza'><i class="fas fa-list-ol"></i>      Cantidad</th>
+                    <th id='tabla_cabeza' style="width: 100px;"><i class="fas fa-dollar-sign"></i>      Precio Venta</th>
+                    <th id='tabla_cabeza' style="width: 100px;"><i class="fas fa-dollar-sign"></i>      Precio Compra</th>
+                    <th id='tabla_cabeza'> <i class="fas fa-object-group"></i>        Categoría</th>
+                    <th id='tabla_cabeza'><i class="fas fa-image"></i>        Imagen</th>
+                    <th id='tabla_cabeza'>Editar</th>
                 </tr>
                 {{#each datos}}
                 <tr>
@@ -53,14 +53,13 @@
                 </tr>
                 {{/each}}
             </table>
-            <div id="espaciado_pag">
-            </div>
+            <div id="espaciado_boton"></div>
             <center>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-arrow-left"></i>&nbsp Regresar</button></center>
         </div>
         <div class="col-md-1"></div>
-        <div id="espaciado_pag"></div>
+        <div id="espaciado_boton"></div>
     </div>
 </form>
 {{> footer}}

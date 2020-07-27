@@ -4,20 +4,29 @@
 
 <div id='separacion'></div>
 <div id='barra'>
-    <h2><i class="fas fa-pencil-alt"></i>&nbsp Buscar Imagen</h2>
+    <h2><i class="fas fa-image"></i> Buscar Imagen</h2>
 </div>
-<form action="/consultar_img" method="POST" enctype="multipart/form-data">
-<div class="form-group">
-    <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
-    <br>
-    <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif" required='true'>
+<div class="main row">
+    <div class="col-md-3"></div>
+<div class="col-md-6">
+    <form action="/consultar_img" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <br>
+            <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+            <br>
+            <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif"
+                required='true'>
+        </div>
+        
+        <center>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i>&nbsp Aceptar
+            </button>
+        </center>
+        <hr>
 </div>
-<hr>
-<center>
-    <button type="submit" class="btn btn-primary">
-        <i class="fas fa-envelope"></i>&nbsp Ingresar producto
-    </button>
-</center>
+<div class="col-md-3"></div>
+</div>
 </form>
 
 {{> footer}}

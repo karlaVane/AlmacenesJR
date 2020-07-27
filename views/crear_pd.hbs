@@ -20,11 +20,11 @@
     <div class="col-md-6">
         <form action="/crear_pd" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label>Nombre &nbsp <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
+                <label>Nombre       <i class="fas fa-cart-plus" style="color: #160F5B;"></i></label>
                 <input type="text" class="form-control" name="name" id="nombre" placeholder="Nombre" required='true'>
             </div>
 
-            <label>Categoría</label>
+            <label>Categoría  <i class="fas fa-object-group" style="color: #160F5B;"></i></label>
             <select id="inputState" class="form-control" name="categ" required='true'>
                 <option selected>Escoga una opción</option>
                 <option value="1">Colchón</option>
@@ -34,13 +34,13 @@
             </select>
             <div class="form-group">
                 <br>
-                <label>Descripción &nbsp <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
+                <label>Descripción      <i class="fas fa-file-alt" style="color: #160F5B;"></i></label>
                 <br>
                 <textarea name="desc" class="form-control" rows="10" cols="50" required='true'
                     placeholder="Descripción"></textarea>
             </div>
             <div class="form-group">
-                <label>Precio Compra &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
+                <label>Precio Compra  <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
                 <div class="main row">
                     <div class="col-md-8">
                         <input type="number" step="any" class="form-control" name="precio_compra" id="precio_compra"
@@ -53,16 +53,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Precio Venta &nbsp <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
+                <label>Precio Venta <i class="fas fa-dollar-sign" style="color: #160F5B;"></i></label>
                 <input class="form-control" name="precio_venta" id='precio_venta'>
             </div>
             <div class="form-group">
-                <label>Cantidad &nbsp <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
+                <label>Cantidad  <i class="fas fa-list-ol" style="color: #160F5B;"></i></label>
                 <input type="number" class="form-control" name="cant" id="cantidad" placeholder="Cantidad"
                     required='true'>
             </div>
             <div class="form-group">
-                <label> Subir una imagen &nbsp<i class="fas fa-image" style="color: #160F5B;"></i></label>
+                <label> Subir una imagen <i class="fas fa-image" style="color: #160F5B;"></i></label>
                 <br>
                 <input type="file" class="form-control" name="image" accept="image/png, .jpeg, .jpg, image/gif"
                     required='true'>
@@ -71,10 +71,10 @@
             <center>
 
                 <button type="submit" class="btn btn-primary"><a href="menu_gestionpd">
-                        <i class="fas fa-envelope"></i>&nbsp Regresar</button></a>
+                        <i class="fas fa-arrow-left"></i>       Regresar</button></a>
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i>&nbsp Ingresar producto</button>
+                    <i class="fas fa-check-circle"></i>     Ingresar producto</button>
             </center>
             <br><br>
 

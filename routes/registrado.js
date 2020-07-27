@@ -5,7 +5,8 @@ const { encryptPassword } = require('../lib/helpers');
 const dateFormat = require('dateformat');
 const fs = require('fs-extra');
 const router = Router();
-
+const cloudinary = require('../lib/cloudinary'); //Inizializar la Cloud
+const axios = require('axios')
 
 router.get('/menu_registrado', isLoggedIn, registrado, (req, res) => {
     res.render('menu_usreg', { pagina: 'Registrado' });
@@ -265,9 +266,10 @@ router.get('/facturas', isLoggedIn, registrado, async(req, res) => {
             consulta.fecha = dateFormat(consulta.fecha, "yyyy-mm-dd")
         });
         res.render('selec_facturas_us', { facturas: facturas, consulta: consulta, pagina: 'Mis facturas' })
+        console.log(facturas);
     } else {
         req.flash('mensaje', 'No tiene Facturas');
-        res.render('selec_facturas_us')
+        res.render('selec_facturas_us', { pagina: 'Facturas' })
     }
 });
 //revisar
@@ -319,7 +321,7 @@ router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
 });
 
 router.get('/consultar_img', isLoggedIn, registrado, (req, res) => {
-    res.render('consprod_img')
+    res.render('consprod_img', { pagina: 'Consultar imagen' })
 });
 
 router.post('/consultar_img', isLoggedIn, registrado, async(req, res) => {
@@ -336,7 +338,7 @@ router.post('/consultar_img', isLoggedIn, registrado, async(req, res) => {
         cat = await DB.query('select * from categoria where id_categoria = ' + clasi.data + ';');
         categ = cat[0].categoria;
     }
-    res.render('mostrar_prod_clasif', { data: respuesta, categ });
+    res.render('mostrar_prod_clasif', { data: respuesta, categ: categ, pagina: 'Productos' });
 });
 
 module.exports = router;

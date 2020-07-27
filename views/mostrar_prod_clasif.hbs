@@ -6,9 +6,10 @@
 {{> mensaje}}
 {{#if data}}
 <div class="container p-4" id="productos">
-    <center>Tu Imagen ingresada pertenece a la Categoria {{categ}}
-        <br> Productos Similares
+    <center style="font-size: x-large; color:darkblue">Tu Imagen ingresada pertenece a la Categoría: {{categ}}
+        <br><b>Productos Similares:</b>
     </center>
+    <hr>
     <form action="/prodCarrito" method="POST">
         <div class="row">
             <div class="card-columns">
@@ -49,16 +50,21 @@
                 {{/each}}
             </div>
         </div>
+        <div id="espaciado_boton"></div>
         <center>
             <button type="submit" class="btn btn-primary" id="btn_añadir">Añadir <i
                     class="fas fa-cart-arrow-down"></i></button>
         </center>
-        <div id="espaciado_boton"></div>
+
     </form>
 </div>
 {{else}}
 <center>
-    <h3>No Hay productos <br> Con Categoria {{categ}}</h3>
+    <label style="font-size: x-large; color:brown">No Hay productos <br> Con Categoria {{categ}}</label>
+    <img src='images/triste.jpg'>
+    <div id="espaciado_boton"></div>
+    <button type="submit" class="btn btn-primary"><a href="/consultar_img">
+            <i class="fas fa-arrow-left"></i> Regresar</button></a>
 </center>
 <div id="espaciado_boton"></div>
 {{/if}}

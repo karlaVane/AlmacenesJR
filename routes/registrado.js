@@ -326,9 +326,9 @@ router.get('/consultar_img', isLoggedIn, registrado, (req, res) => {
 
 router.post('/consultar_img', isLoggedIn, registrado, async(req, res) => {
     var resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+    fs.unlink(req.file.path);
     var clasi = await axios.get(`http://127.0.0.1:5000/clasificador?img=${resultIMG.url}`);
     console.log(clasi.data);
-    fs.unlink(req.file.path);
     await cloudinary.v2.uploader.destroy(resultIMG.public_id);
     var respuesta = await DB.query('select * from producto, categoria where categoria.id_categoria = producto.id_categoria and  producto.id_categoria = ' + clasi.data + ';');
     var categ

@@ -4,6 +4,7 @@ const router = Router();
 const { isLoggedIn, contador } = require('../lib/auth');
 const dateFormat = require('dateformat');
 const axios = require('axios');
+var dateTime = require('node-datetime');
 
 router.get('/menu_contador', isLoggedIn, contador, (req, res) => {
     res.render('menu_contador', { pagina: 'Contador' });
@@ -252,7 +253,49 @@ router.get('/prediccion', isLoggedIn, contador, async(req, res) => {
         }
     }
     res.render('estimaciones', { predic: newpred, img: img, pagina: 'Predicciones' })
-
 });
+
+router.get('/prod_mas_vendido', isLoggedIn, contador, (req, res) => {
+    var dt = dateTime.create();
+    var formatted = dt.format('Y-m-d');
+    res.render('prod_mas_vendido', {
+        pagina: 'Producto',
+        fecha_act: formatted
+    });
+});
+router.post('/prod_mas_vendido', isLoggedIn, contador, async(req, res) => {
+    var desde = req.body.fecha_desde
+    var hasta = req.body.fecha_hasta
+    const sql = "select * from " +
+        "(Select detalle_compra.id_prod,nombre_prod,imagen,sum(cant_comp) as cantidad,sum(total) as total " +
+        "from  detalle_compra, compra,producto " +
+        "where compra.id_detalle = detalle_compra.id_detalle " +
+        "and detalle_compra.id_prod = producto.id_prod " +
+        "and fecha >'" + desde + "' " +
+        "and fecha <'" + hasta + "' " +
+        "group by detalle_compra.id_prod " +
+        ")C where cantidad = " +
+        "(select max(cantidad) from(" +
+        "Select detalle_compra.id_prod,nombre_prod,imagen,sum(cant_comp) as cantidad,sum(total) as total " +
+        "from detalle_compra, compra,producto " +
+        "where compra.id_detalle = detalle_compra.id_detalle " +
+        "and detalle_compra.id_prod = producto.id_prod " +
+        "and fecha >'" + desde + "' " +
+        "and fecha <'" + hasta + "' " +
+        "group by detalle_compra.id_prod " +
+        ")A)"
+
+    await DB.query(sql, (error, row, fields) => {
+        if (!error) {
+            res.render('prod_mas_vendido', {
+                pagina: 'Producto',
+                datos: row
+            });
+        } else {
+            res.send(error)
+        }
+    });
+});
+
 
 module.exports = router;

@@ -1,0 +1,42 @@
+{{> header}}
+{{> navbar}}
+<div id='separacion'></div>
+<div id="barra">
+        <h2><i class="fas fa-chart-bar"></i>    Producto más vendido</h2>
+    </div>
+<div class="container">
+    {{> mensaje}}
+    <br>
+    <div class="main row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+            <br><br>
+            Ingresar intervalo de fechas para tu consulta:
+            <br><br>
+            <form action="/prod_mas_vendido" method="POST">
+                <b>Desde:</b>
+                <p>Fecha esperada: <input type="date" name="fecha_desde" min="2018-01-01" max="{{fecha_act}}" required>
+                </p>
+                <b>Hasta: </b>
+                <p>Fecha esperada: <input type="date" name="fecha_hasta" min="2018-01-01" max="{{fecha_act}}" required>
+                </p>
+                <center><button type="submit" class="btn btn-primary"> <i class="fas fa-check-circle"></i> Enviar</button></center>
+            </form>
+        </div>
+        <div class="col-md-1"></div>
+        {{#each datos}}
+        <div class="col-md-6" style="color: #160F5B;"> 
+            <center>
+                El producto mas vendido es: <br>
+                <b>{{nombre_prod}}</b>
+                <br>
+                <img src="{{imagen}}" width="300px" height="300px"><br><br><br>
+                El producto {{nombre_prod}} se ha vendido <b>{{cantidad}}</b> veces, teniendo una venta total de:
+                <b>${{total}}</b>
+                {{/each}}
+            </center>
+        </div>
+    </div>
+</div>
+<div id="espaciado_boton"></div>
+{{> footer}}

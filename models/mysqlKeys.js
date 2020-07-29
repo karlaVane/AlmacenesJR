@@ -8,20 +8,20 @@ module.exports = {
      }*/
     ///Clever Cloud
     /*
-    DB: {
-        host: 'bmjd90hnoovqvagyqmil-mysql.services.clever-cloud.com',
-        user: 'usy9m2uck5ogfpio',
-        password: 'CJhojSlXANQkJqk4Imb0',
-        database: 'bmjd90hnoovqvagyqmil',
-        multipleStatements: true
-    }
+        DB: {
+            host: 'bmjd90hnoovqvagyqmil-mysql.services.clever-cloud.com',
+            user: 'usy9m2uck5ogfpio',
+            password: 'CJhojSlXANQkJqk4Imb0',
+            database: 'bmjd90hnoovqvagyqmil',
+            multipleStatements: true
+        }
     */
     ///Google Cloud
     //Necesito los ips de sus compus
     DB: {
-        host: '35.198.10.49',
-        user: 'root',
-        password: 'CJhojSlXANQkJqk4Imb0S',
+        host: process.env.GCLOUD_host,
+        user: process.env.GCLOUD_user,
+        password: process.env.GCLOUD_password,
         database: 'almacenes_jr',
         multipleStatements: true
     }

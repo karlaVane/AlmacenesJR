@@ -32,38 +32,42 @@ router.get('/crear_us', isLoggedIn, admin, (req, res) => {
 });
 
 router.post('/crear_us', isLoggedIn, admin, async(req, res) => {
-    const { nombre, cedula, correo, telf, dir, tipoUS } = req.body;
-    var { passw } = req.body;
-    var nombres = await DB.query('SELECT nombre FROM usuario')
-    if (nombres.include(nombre)) {
-        req.flash('mensaje', "El Nombre de usuario " + nombre + " ya existe");
-        res.redirect('/crear_us');
-    }
-    passw = await help.encryptPassword(passw);
-    if (!req.file) {
-        const imagen = null
-        const id_img = null
-        const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen,id_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, imagen, id_img], (error, rows, fields) => {
-            if (!error) {
-                req.flash('exito', "Usuario " + nombre + " Creado con exito");
-                res.redirect('menu_gestionus');
-            } else {
-                res.send(error);
-            }
-        });
-    }
-    const resulIMG = await cloudinary.v2.uploader.upload(req.file.path);
-    const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen,id_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, resulIMG.url, resulIMG.public_id], (error, rows, fields) => {
-        if (!error) {
-            fs.unlink(req.file.path);
-            res.redirect('/menu_gestionus');
+    try {
+        const { nombre, cedula, correo, telf, dir, tipoUS } = req.body;
+        var { passw } = req.body;
+        var resp = await DB.query("SELECT nombre FROM usuario where nombre = '" + nombre + "';");
+        if (resp.length > 0) {
+            req.flash('mensaje', "El Nombre de usuario " + nombre + " ya existe");
+            res.redirect('/crear_us');
         } else {
-            res.send(error);
+            passw = await help.encryptPassword(passw);
+            if (!req.file) {
+                const imagen = null;
+                const id_img = null;
+                const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen,id_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, imagen, id_img], (error, rows, fields) => {
+                    if (!error) {
+                        req.flash('exito', "Usuario " + nombre + " Creado con exito");
+                        res.redirect('menu_gestionus');
+                    } else {
+                        res.send(error);
+                    }
+                });
+            }
+            const resulIMG = await cloudinary.v2.uploader.upload(req.file.path);
+            const sql = "INSERT INTO usuario (nombre, cedula, correo, contrasenia, direccion, telefono, estado, id_us, otros_datos,imagen,id_img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            await DB.query(sql, [nombre, cedula, correo, passw, dir, telf, 1, tipoUS, 0, resulIMG.url, resulIMG.public_id], (error, rows, fields) => {
+                if (!error) {
+                    fs.unlink(req.file.path);
+                    res.redirect('/menu_gestionus');
+                } else {
+                    res.send(error);
+                }
+            });
         }
-    });
-
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 router.get('/consultar_us', isLoggedIn, admin, async(req, res) => {
@@ -75,7 +79,7 @@ router.get('/consultar_us', isLoggedIn, admin, async(req, res) => {
                 datos: row
             });
         } else {
-            res.send(error)
+            res.send(error);
         }
     });
 });
@@ -89,20 +93,22 @@ router.get('/eliminar_us', isLoggedIn, admin, async(req, res) => {
                 datos: row
             });
         } else {
-            res.send(error)
+            res.send(error);
         }
     });
 });
 
 router.get("/eliminar_usuario", isLoggedIn, admin, async(req, res) => {
     const id_usEl = req.query.id_us;
-    const sql = "delete from usuario where id_usuario= " + id_usEl;
+    var sql = "update usuario set estado = 0 where id_usuario = " + id_usEl + ";"
+        //const sql = "delete from usuario where id_usuario= " + id_usEl;
     await DB.query(sql, async(error, row, fields) => {
         if (!error) {
             var img = req.query.img;
-            if (img) {
-                await cloudinary.v2.uploader.destroy(img);
-            }
+            console.log(img);
+            /* if (img) {
+                 await cloudinary.v2.uploader.destroy(img);
+             }*/
             res.redirect('/eliminar_us')
         } else {
             res.send(error)
@@ -222,17 +228,27 @@ router.get('/crear_pd', isLoggedIn, admin, (req, res) => {
 });
 
 router.post('/crear_pd', isLoggedIn, admin, async(req, res) => {
-    const { name, categ, desc, precio_compra, precio_venta, cant } = req.body;
-    const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
-    var sql = "INSERT INTO producto (nombre_prod, descripcion, cantidad,  imagen, id_img, precio_venta, precio_compra, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    await DB.query(sql, [name.toUpperCase(), desc, cant, resultIMG.url, resultIMG.public_id, precio_venta, precio_compra, categ], (error, row, fields) => {
-        if (!error) {
-            fs.unlink(req.file.path);
-            res.redirect('/menu_gestionpd')
+    try {
+        const { name, categ, desc, precio_compra, precio_venta, cant } = req.body;
+        var resp = await DB.query("SELECT nombre_prod FROM producto where nombre_prod = '" + name + "';");
+        if (resp.length > 0) {
+            req.flash('mensaje', "El Producto " + resp[0].nombre_prod + " ya existe");
+            res.redirect('/crear_pd');
         } else {
-            res.send(error);
+            const resultIMG = await cloudinary.v2.uploader.upload(req.file.path);
+            var sql = "INSERT INTO producto (nombre_prod, descripcion, cantidad,  imagen, id_img, precio_venta, precio_compra, id_categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            await DB.query(sql, [name.toUpperCase(), desc, cant, resultIMG.url, resultIMG.public_id, precio_venta, precio_compra, categ], (error, row, fields) => {
+                if (!error) {
+                    fs.unlink(req.file.path);
+                    res.redirect('/menu_gestionpd')
+                } else {
+                    res.send(error);
+                }
+            });
         }
-    });
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 router.get('/consultar_pd_admin', isLoggedIn, admin, async(req, res) => {

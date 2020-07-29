@@ -13,7 +13,7 @@ router.get('/menu_registrado', isLoggedIn, registrado, (req, res) => {
 });
 
 router.get('/seleccionar_pd', isLoggedIn, registrado, async(req, res) => {
-    const sql = "select id_prod, nombre_prod,descripcion,cantidad,precio_venta, imagen from producto";
+    const sql = "select id_prod, nombre_prod,descripcion,cantidad,precio_venta, imagen from producto where cantidad > 0;";
     await DB.query(sql, (error, row, fields) => {
         if (!error) {
             res.render('seleccionar_pd', {
@@ -29,26 +29,37 @@ router.get('/seleccionar_pd', isLoggedIn, registrado, async(req, res) => {
 router.post('/prodCarrito', isLoggedIn, registrado, async(req, res) => {
     var selecionados = req.body //objeto
     var prod = Object.values(selecionados)
-    var newcar = {
-        user_id: req.user.id_usuario,
-        cantidad: 1
-    };
-    if (prod.length > 0) {
-        await DB.query('SELECT * FROM producto WHERE id_prod IN (' + prod + ');', (error, row, fields) => {
-            if (!error) {
-                row.forEach(async producto => {
-                    newcar.prod_id = producto.id_prod;
-                    newcar.total_producto = producto.precio_venta;
-                    await DB.query('INSERT INTO cars SET ?', [newcar]);
+    try {
+        var valid = await DB.query('SELECT prod_id from cars WHERE user_id = ' + req.user.id_usuario + ' and prod_id in (' + prod + ');');
+        console.log(valid);
+        if (valid.length > 0) {
+            req.flash('mensaje', 'Seleccionaste uno o mas productos que ya se encuentran en tu carrito');
+            res.redirect('/seleccionar_pd');
+        } else {
+            var newcar = {
+                user_id: req.user.id_usuario,
+                cantidad: 1
+            };
+            if (prod.length > 0) {
+                await DB.query('SELECT * FROM producto WHERE id_prod IN (' + prod + ');', (error, row, fields) => {
+                    if (!error) {
+                        row.forEach(async producto => {
+                            newcar.prod_id = producto.id_prod;
+                            newcar.total_producto = producto.precio_venta;
+                            await DB.query('INSERT INTO cars SET ?', [newcar]);
+                        });
+                        res.redirect('/carrito');
+                    } else
+                        res.send(error);
                 });
-                res.redirect('/carrito');
-            } else
-                res.send(error);
-        });
 
-    } else {
-        req.flash('mensaje', 'No a seleccionado ningun producto');
-        res.redirect('/seleccionar_pd');
+            } else {
+                req.flash('mensaje', 'No a seleccionado ningun producto');
+                res.redirect('/seleccionar_pd');
+            }
+        }
+    } catch (error) {
+        console.log(error);
     }
 });
 
@@ -124,6 +135,10 @@ router.post('/datos_tarj', isLoggedIn, registrado, async(req, res) => {
                 id_usuario: req.user.id_usuario,
                 id_prod: producto[0].prod_id
             }
+            var totProd = await DB.query('SELECT cantidad FROM producto where id_prod = ' + producto[0].prod_id + ';');
+            var resProd = totProd[0].cantidad - producto[0].cantidad;
+            console.log(resProd);
+            DB.query('update producto set cantidad = ' + resProd + ' where id_prod = ' + producto[0].prod_id + ';')
             console.log("Detalle->", newdetalle);
             await DB.query('INSERT INTO detalle_compra SET ?', [newdetalle]);
             var detalleId = await DB.query('SELECT LAST_INSERT_ID();');
@@ -172,6 +187,10 @@ router.post('/datos_tarj', isLoggedIn, registrado, async(req, res) => {
                 var id_detalle = Object.values(detalleId[0]);
                 ids_detalle.push(id_detalle);
                 console.log("Detalle->", newdetalle);
+                var totProd = await DB.query('SELECT cantidad FROM producto where id_prod = ' + producto[0].prod_id + ';');
+                var resProd = totProd[0].cantidad - producto[0].cantidad;
+                console.log(resProd);
+                DB.query('update producto set cantidad = ' + resProd + ' where id_prod = ' + producto[0].prod_id + ';')
             }
             console.log("ids_detalle", ids_detalle);
             var num_fac = await DB.query('SELECT num_factura from compra');
@@ -243,7 +262,7 @@ router.get('/factura', isLoggedIn, registrado, async(req, res) => {
         res.render('datos_facturacion', { pagina: 'Datos factura', facturas: compras });
     }
 });
-//revisar
+
 router.get('/facturas', isLoggedIn, registrado, async(req, res) => {
     var facturas = [];
     var consulta = await DB.query('SELECT compra.num_factura, compra.fecha, usuario.nombre, usuario.cedula, usuario.correo, usuario.direccion, producto.nombre_prod,' +
@@ -272,7 +291,7 @@ router.get('/facturas', isLoggedIn, registrado, async(req, res) => {
         res.render('selec_facturas_us', { pagina: 'Facturas' })
     }
 });
-//revisar
+
 router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
     var id_fac = req.query.id_factura;
     console.log(id_fac);

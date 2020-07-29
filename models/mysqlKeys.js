@@ -1,11 +1,11 @@
 module.exports = {
-    /* DB: {
-         host: 'localhost',
-         user: 'root',
-         password: 'Velascogsg',
-         database: 'almacenes_jr',
-         multipleStatements: true
-     }*/
+    /*DB: {
+        host: 'localhost',
+        user: 'root',
+        password: 'Velascogsg',
+        database: 'almacenes_jr',
+        multipleStatements: true
+    }*/
     ///Clever Cloud
     /*
         DB: {
@@ -18,6 +18,7 @@ module.exports = {
     */
     ///Google Cloud
     //Necesito los ips de sus compus
+
     DB: {
         host: process.env.GCLOUD_host,
         user: process.env.GCLOUD_user,
@@ -25,4 +26,5 @@ module.exports = {
         database: 'almacenes_jr',
         multipleStatements: true
     }
+
 };

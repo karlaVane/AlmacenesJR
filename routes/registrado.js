@@ -241,7 +241,33 @@ router.get('/factura', isLoggedIn, registrado, async(req, res) => {
             'and pago_cobro.id_tipoPago = tipo_pago.id_tipoPago ' +
             'and compra.id_compra = ' + compra.id_compra +
             ' and detalle_compra.id_usuario = ' + req.user.id_usuario + ';');
-        res.render('datos_facturacion', { pagina: 'Datos factura', factura: consulta[0] });
+        var sum_total = 0
+        consulta.forEach(fac => {
+            sum_total = sum_total + fac.total
+            fac.fecha = dateFormat(fac.fecha, "yyyy-mm-dd")
+        });
+        var numfac = consulta[0].num_factura
+        var fecha = consulta[0].fecha
+        var nombre = consulta[0].nombre
+        var cedula = consulta[0].cedula
+        var direccion = consulta[0].direccion
+        var telef = consulta[0].telefono
+        var subtotal = (sum_total / 1.12).toFixed(2)
+        var iva = ((subtotal * 12) / 100).toFixed(2)
+        console.log(consulta);
+        res.render('datos_facturacion', {
+            fac: consulta,
+            fecha: fecha,
+            nombre: nombre,
+            cedula: cedula,
+            direccion: direccion,
+            telef: telef,
+            sum_total: sum_total,
+            numfac: numfac,
+            subtotal: subtotal,
+            iva: iva,
+            pagina: 'Datos factura'
+        });
     }
     if (compra.ids_compra) {
         var compras = [];
@@ -259,7 +285,34 @@ router.get('/factura', isLoggedIn, registrado, async(req, res) => {
                 ' and detalle_compra.id_usuario = ' + req.user.id_usuario + ';');
             compras.push(consulta[0])
         }
-        res.render('datos_facturacion', { pagina: 'Datos factura', facturas: compras });
+        var sum_total = 0
+        compras.forEach(fac => {
+            sum_total = sum_total + fac.total
+            fac.fecha = dateFormat(fac.fecha, "yyyy-mm-dd")
+        });
+
+        var numfac = consulta[0].num_factura
+        var fecha = consulta[0].fecha
+        var nombre = consulta[0].nombre
+        var cedula = consulta[0].cedula
+        var direccion = consulta[0].direccion
+        var telef = consulta[0].telefono
+        var subtotal = (sum_total / 1.12).toFixed(2)
+        var iva = ((subtotal * 12) / 100).toFixed(2)
+        console.log(compras);
+        res.render('datos_facturacion', {
+            fac: compras,
+            fecha: fecha,
+            nombre: nombre,
+            cedula: cedula,
+            direccion: direccion,
+            telef: telef,
+            sum_total: sum_total,
+            numfac: numfac,
+            subtotal: subtotal,
+            iva: iva,
+            pagina: 'Datos factura'
+        });
     }
 });
 

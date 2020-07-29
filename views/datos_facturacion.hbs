@@ -1,132 +1,65 @@
 {{> header}}
 {{> navbar}}
-
-<div id='separacion'></div>
-<div class="container">
+<div id="separacion"></div>
 <br><br>
-{{> mensaje}}
-{{#if factura}}
-<div class="main row-center">
-  <div class="col-md-1">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal1"><i class="fas fa-info-circle"></i></button>
-      <b style="color:#160F5B; font-size: small;">Ayuda</b>
+<div class="main row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <center>
+            <h4><img src="images/logochaide.png" width="50px" height="50px">Almacenes JR Distribuidor autorizado</h4>
+        </center><br>
+        <div class="main row">
+            <div class="col-md-7">
+                <div id='datos_cliente_fac'>
+                    <b>Fecha: </b>{{fecha}}<br>
+                    <b>Nombre: </b>{{nombre}}<br>
+                    <b>Cédula: </b>{{cedula}}<br>
+                    <b>Dirección: </b>{{direccion}}<br>
+                    <b>Teléfono: </b>{{telef}}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div id="cuadrito_factura">
+                    <b>Factura N°: </b>{{numfac}}<br>
+                    <b>RUC: </b>xxxxxxxxxxxxx<br>
+                    <b>Dirección: </b>Av. Teniente Hugo Ortiz S11-138<br>
+                    <b>Teléfono: </b>02-2610-555
+                </div>
+            </div>
+
+        </div>
+        <hr>
+        <table class="table">
+            <tr>
+                <th style="width: 100px;">Cantidad</th>
+                <th>Producto</th>
+                <th style="width: 100px;">Precio</th>
+            </tr>
+            {{#each fac}}
+            <tr>
+                <td style="width: 100px; text-align: center;">{{cant_comp}}</td>
+                <td>{{nombre_prod}}</td>
+                <td style="width: 100px; text-align: center;">{{total}}</td>
+            </tr>
+            {{/each}}
+        </table>
+        <table id='calculos_factura'>
+            <tr>
+                <td id="tabla_cal"><b>Sub Total: </b></td>
+                <td style="width: 100px; text-align: center;">${{subtotal}}</td>
+            </tr>
+            <tr>
+                <td id="tabla_cal"><b>IVA 12%: </b></td>
+                <td style="width: 100px; text-align: center;">${{iva}}</td>
+            </tr>
+            <tr>
+                <td id="tabla_cal"><b>TOTAL: </b></td>
+                <td style="width: 100px;text-align: center;">${{sum_total}}</td>
+            </tr>
+
+        </table>
+    </div>
 </div>
-<center>
-    <hr>
-    <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp Datos factura: {{factura.num_factura}}</label>
-    <br><br><br>
-    <table>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Usuario: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;"> {{factura.nombre}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Cédula: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{factura.cedula}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Dirección: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{factura.direccion}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp Producto:</label>
-            </td>
-            <td>
-               <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{factura.nombre_prod}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Cantidad: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{factura.cant_comp}}</label>
-            </td>
-        </tr>
-         <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Total: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{factura.total}}</label>
-            </td>
-        </tr>
-    </table>
-</center>
-</div>
-</div>
-{{else}}
-<h2>POR Crear</h2>
-{{#each facturas}}
-<center>
-    <hr>
-    <label id="datos"><i class="fas fa-pen-square" style="color:#160F5B ;"></i>&nbsp&nbsp Datos factura: {{num_factura}}</label>
-    <br><br><br>
-    <table>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-user-alt" style="color:#160F5B ;"></i>&nbsp Usuario: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;"> {{nombre}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Cédula: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{cedula}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label> <i class="fas fa-truck" style="color:#160F5B ;"></i>&nbsp Dirección: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{direccion}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-phone-volume" style="color:#160F5B ;"></i>&nbsp Producto:</label>
-            </td>
-            <td>
-               <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{nombre_prod}}</label>
-            </td>
-        </tr>
-        <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Cantidad: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{cant_comp}}</label>
-            </td>
-        </tr>
-         <tr>
-            <td id="facturacion">
-                <label><i class="fas fa-envelope" style="color:#160F5B ;"></i>&nbsp Total: </label>
-            </td>
-            <td>
-                <label  class="form-control" id="exampleInputPassword1" style="background-color: #78AEEE;">{{total}}</label>
-            </td>
-        </tr>
-    </table>
-    <br>
-</center>
-{{/each}}
-{{/if}}
+<div class="col-md-2"></div>
+<div id="espaciado_boton"></div>
 {{> footer}}

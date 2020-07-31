@@ -232,7 +232,7 @@ router.get('/factura', isLoggedIn, registrado, async(req, res) => {
     var compra = req.query;
     if (compra.id_compra) {
         console.log(compra.id_compra);
-        var consulta = await DB.query('SELECT compra.num_factura, usuario.nombre, usuario.cedula, usuario.correo, usuario.direccion, producto.nombre_prod,' +
+        var consulta = await DB.query('SELECT compra.num_factura, usuario.nombre, usuario.cedula, usuario.correo, usuario.direccion,usuario.telefono, producto.nombre_prod,' +
             'detalle_compra.cant_comp, detalle_compra.total, tipo_pago.tarjeta  FROM usuario, compra, detalle_compra, pago_cobro, producto, tipo_pago ' +
             'WHERE compra.id_detalle = detalle_compra.id_detalle ' +
             'and compra.id_pago = pago_cobro.id_pago ' +
@@ -392,6 +392,7 @@ router.get('/consultar_f', isLoggedIn, registrado, async(req, res) => {
     });
 });
 
+//CONSULTAR PRODUCTOS POR IMAGEN 
 router.get('/consultar_img', isLoggedIn, registrado, (req, res) => {
     res.render('consprod_img', { pagina: 'Consultar imagen' })
 });

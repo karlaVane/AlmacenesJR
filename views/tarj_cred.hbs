@@ -140,18 +140,18 @@
                 <div class="col-md-5">
                     <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta:
                     </label>
-                    <input type="input" class="form-control" id="exampleInputPassword1" name="numeroTarjC"
+                    <input type="imput" class="form-control" id="exampleInputPassword1" name="numeroTarjC"
                         placeholder='XXXXXXXXXXXXXXXX' required style="background-color: #78AEEE; width: 300px;"><br>
                     <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de
                         expiración:
                     </label>
-                    <input type="input" class="form-control" id="fecha" name="fechaTarjC" placeholder='AAAA/MMM/DDD'
-                        required style="background-color: #78AEEE; width: 300px;" onchange=mydate(this)><br>
+                    <input type="input" class="form-control" id="fecha" name="fechaTarjC" placeholder='AAAA/MM/DD'
+                    style="background-color: #78AEEE; width: 300px;" onchange=mydate(this)><br>
 
                     <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
                     </label>
                     <input type="input" class="form-control" id="exampleInputPassword1" name="codigoTarjC"
-                        placeholder='XXX' required style="background-color: #78AEEE; width: 300px;">
+                        placeholder='XXX' style="background-color: #78AEEE; width: 300px;">
                 </div>
             </div>
         </div>
@@ -175,18 +175,18 @@
                 <div class="col-md-5">
                     <label> <i class="fas fa-id-card" style="color:#160F5B ;"></i>&nbsp Ingrese número de tarjeta:
                     </label>
-                    <input type="input" class="form-control" id="exampleInputPassword1" name="numeroTarjD" required
+                    <input type="input" class="form-control" id="exampleInputPassword1" name="numeroTarjD"
                         placeholder='XXXXXXXXXXXXXXXX' style="background-color: #78AEEE; width: 300px;"><br>
                     <label> <i class="fas fa-calendar-alt" style="color:#160F5B ;"></i>&nbsp Ingresar fecha de
                         expiración:
                     </label>
-                    <input type="input" class="form-control" id="fecha" name="fechaTarjD" placeholder='AAAA/MMM/DDD'
-                        required style="background-color: #78AEEE; width: 300px;" onchange=mydate(this)><br>
+                    <input type="input" class="form-control" id="fecha" name="fechaTarjD" placeholder='AAAA/MM/DD'
+                        style="background-color: #78AEEE; width: 300px;" onchange=mydate(this)><br>
 
                     <label> <i class="fas fa-lock" style="color:#160F5B ;"></i>&nbsp Ingresar código de seguridad:
                     </label>
                     <input type="input" class="form-control" id="exampleInputPassword1" name="codigoTarjD"
-                        placeholder='XXX' required style="background-color: #78AEEE; width: 300px;">
+                        placeholder='XXX'  style="background-color: #78AEEE; width: 300px;" >
                 </div>
             </div>
         </div>
@@ -213,7 +213,7 @@
     </form>
     <script type="text/javascript">
         function showhideTarjeta_credito() {
-            document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("credito").value
+            document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de crédito"
 
             if (document.getElementById('credito').checked) {
                 document.getElementById('tarjeta_credito').style.display = 'block';
@@ -223,7 +223,7 @@
             }
         }
         function showhideTarjeta_debito() {
-            document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de " + document.getElementById("debito").value
+            document.getElementById("resp").innerHTML = "Has seleccionado Tarjeta de débito"
 
             if (document.getElementById('debito').checked) {
                 document.getElementById('ayuda').style.display = 'none';
